@@ -4,6 +4,7 @@
 /home/utec/try_opt/build/ur5_scaled_sender/CMakeFiles/opt_teleop.dir
 /home/utec/try_opt/build/ur5_scaled_sender/CMakeFiles/test_jacobian.dir
 /home/utec/try_opt/build/ur5_scaled_sender/CMakeFiles/opt_teleop_pinocchio.dir
+/home/utec/try_opt/build/ur5_scaled_sender/CMakeFiles/opt_teleop_haptic.dir
 /home/utec/try_opt/build/ur5_scaled_sender/CMakeFiles/test.dir
 /home/utec/try_opt/build/ur5_scaled_sender/CMakeFiles/edit_cache.dir
 /home/utec/try_opt/build/ur5_scaled_sender/CMakeFiles/rebuild_cache.dir

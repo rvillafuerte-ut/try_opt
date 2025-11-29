@@ -33,7 +33,7 @@ public:
     );
 
     positions_param_ = this->declare_parameter<std::vector<double>>(
-      "positions", std::vector<double>{0.0, -1.57, 1.57, 0.0, 0.0, 0.0});
+      "positions", std::vector<double>{0.0, 0., 0.0, 0.0, 1.0, 0.0});
 
     time_from_start_sec_ = this->declare_parameter<double>("time_from_start_sec", 2.0);
     repeat_ = this->declare_parameter<bool>("repeat", false);

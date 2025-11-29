@@ -1,5 +1,0 @@
-[35m[1mConsolidate compiler generated dependencies of target opt_teleop[0m
-[ 25%] Built target scaled_traj_publisher
-[ 50%] Built target test_jacobian
-[ 75%] Built target opt_teleop_pinocchio
-[ 87%] [32m[1mLinking CXX executable opt_teleop[0m

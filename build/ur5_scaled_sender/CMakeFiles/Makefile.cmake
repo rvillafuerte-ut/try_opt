@@ -717,4 +717,5 @@ set(CMAKE_DEPEND_INFO_FILES
   "CMakeFiles/opt_teleop.dir/DependInfo.cmake"
   "CMakeFiles/test_jacobian.dir/DependInfo.cmake"
   "CMakeFiles/opt_teleop_pinocchio.dir/DependInfo.cmake"
+  "CMakeFiles/opt_teleop_haptic.dir/DependInfo.cmake"
   )

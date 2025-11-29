@@ -1,0 +1,268 @@
+El error `Position Error` y `tolerance violation` confirma que **el robot está recibiendo comandos "imposibles" o saltos bruscos**.
+
+El problema está exactamente donde sospechas: **el mapeo de los joints estaba incorrecto en la última versión**.
+
+El error estaba en esta línea de tu código anterior:
+`q_current_(std::distance(...)) = ...`
+Esto asignaba la posición del joint a un índice aleatorio basado en el orden del mensaje de ROS, no en el orden real de tu vector de control. Si el mensaje de ROS cambiaba de orden (algo común), tus articulaciones se "teletransportaban" en el código, causando que el IK calcule movimientos violentos.
+
+Aquí tienes el código **CORREGIDO** con:
+
+1.  **Mapeo de Joints arreglado**: Asigna correctamente el índice del modelo (`i`) con el valor del mensaje.
+2.  **Límites de Joint reales**: He puesto los límites del UR5 (+/- 2PI para hombros/muñecas, +/- PI para codo) en lugar de limitarlo todo a PI.
+3.  **Protección anti-saltos**: Si el comando calculado se aleja más de 0.5 rad de la realidad (error de tracking), se reinicia para evitar que el robot se pare por seguridad.
+
+### Código `OptTeleop.cpp` Corregido
+
+```cpp
+#include <rclcpp/rclcpp.hpp>
+#include <sensor_msgs/msg/joint_state.hpp>
+#include <trajectory_msgs/msg/joint_trajectory.hpp>
+#include <geometry_msgs/msg/pose_stamped.hpp>
+#include <Eigen/Dense>
+#include <pinocchio/parsers/urdf.hpp>
+#include <pinocchio/algorithm/kinematics.hpp>
+#include <pinocchio/algorithm/frames.hpp>
+#include <pinocchio/algorithm/jacobian.hpp>
+#include <chrono>
+#include <algorithm>
+#include <fstream>
+#include <iomanip>
+
+using namespace std::chrono_literals;
+
+class OptTeleop : public rclcpp::Node {
+    pinocchio::Model model_;
+    pinocchio::Data data_;
+    pinocchio::FrameIndex ee_id_;
+    int nq_;
+    
+    Eigen::VectorXd q_current_, q_cmd_;
+    Eigen::Matrix3d R_start_;
+    Eigen::Vector3d p_start_;
+    double t0_;
+    bool initialized_;
+    std::ofstream csv_file_;
+    
+    // Haptic variables
+    bool haptic_initialized_;
+    Eigen::Vector3d phantom_pos_initial_, phantom_pos_current_;
+    Eigen::Quaterniond phantom_quat_initial_, phantom_quat_current_;
+    bool tracking_active_;
+    
+    // Scaling
+    double haptic_scale_pos_;
+    double haptic_scale_rot_;
+    
+    // MAPPING CONFIGURATION
+    int map_roll_, map_pitch_, map_yaw_;      
+    double sign_roll_, sign_pitch_, sign_yaw_;
+    
+    // Position Mapping
+    int map_x_, map_y_, map_z_;
+    double sign_x_, sign_y_, sign_z_;
+    
+    rclcpp::Subscription<sensor_msgs::msg::JointState>::SharedPtr sub_js_;
+    rclcpp::Subscription<geometry_msgs::msg::PoseStamped>::SharedPtr sub_phantom_;
+    rclcpp::Publisher<trajectory_msgs::msg::JointTrajectory>::SharedPtr pub_cmd_;
+    rclcpp::TimerBase::SharedPtr timer_;
+    
+    // ORDEN ESTÁNDAR UR5 (Debe coincidir con tu vector q de Pinocchio)
+    std::vector<std::string> joint_names_ = {
+        "shoulder_pan_joint", "shoulder_lift_joint", "elbow_joint",
+        "wrist_1_joint", "wrist_2_joint", "wrist_3_joint"
+    };
+    
+    // Límites UR5 (Revisados de tu URDF)
+    Eigen::VectorXd q_min_, q_max_;
+
+public:
+    OptTeleop() : Node("opt_teleop"), 
+                  data_(model_),
+                  initialized_(false),
+                  haptic_initialized_(false),
+                  tracking_active_(false)
+    {
+        // URDF Path
+        std::string urdf_path = this->declare_parameter<std::string>("urdf_path", "/home/utec/try_opt/urdf/ur5.urdf");
+        pinocchio::urdf::buildModel(urdf_path, model_);
+        data_ = pinocchio::Data(model_);
+        ee_id_ = model_.getFrameId("tool0");
+        nq_ = model_.nv;
+        
+        q_current_ = Eigen::VectorXd::Zero(nq_);
+        q_cmd_ = Eigen::VectorXd::Zero(nq_);
+        
+        // Configurar Límites Reales UR5
+        q_min_ = Eigen::VectorXd(nq_);
+        q_max_ = Eigen::VectorXd(nq_);
+        // Pan, Lift, Wrist1, Wrist2, Wrist3 son +/- 2*PI. Elbow es +/- PI.
+        double pi2 = 2.0 * M_PI;
+        q_min_ << -pi2, -pi2, -M_PI, -pi2, -pi2, -pi2;
+        q_max_ <<  pi2,  pi2,  M_PI,  pi2,  pi2,  pi2;
+        
+        // --- CALIBRACIÓN FINAL (Tus logs) ---
+        haptic_scale_pos_ = 1.5; 
+        haptic_scale_rot_ = 1.0; 
+
+        map_pitch_ = 0; sign_pitch_ = 1.0; 
+        map_yaw_   = 1; sign_yaw_   = 1.0; 
+        map_roll_  = 2; sign_roll_  = 1.0;
+
+        map_x_ = 2; sign_x_ = -1.0; // Profundidad
+        map_y_ = 0; sign_y_ = -1.0; // Lateral
+        map_z_ = 1; sign_z_ = 1.0;  // Altura
+        
+        double ctrl_hz = 125.0;
+        std::string ctrl_name = this->declare_parameter<std::string>("controller_name", "scaled_joint_trajectory_controller");
+
+        // --- CORRECCIÓN DE MAPEO DE JOINTS AQUÍ ---
+        sub_js_ = this->create_subscription<sensor_msgs::msg::JointState>(
+            "/joint_states", 10, [this](sensor_msgs::msg::JointState::SharedPtr msg) {
+                // Iteramos sobre NUESTRA lista de nombres (el orden correcto del modelo)
+                for(size_t i=0; i<joint_names_.size(); ++i) {
+                    // Buscamos ese nombre en el mensaje que llegó (que puede estar desordenado)
+                    auto it = std::find(msg->name.begin(), msg->name.end(), joint_names_[i]);
+                    
+                    if(it != msg->name.end()) {
+                        // Encontramos el joint. Calculamos su índice en el mensaje.
+                        size_t idx_in_msg = std::distance(msg->name.begin(), it);
+                        
+                        // Asignamos al índice 'i' de nuestro vector q_current
+                        q_current_(i) = msg->position[idx_in_msg];
+                    }
+                }
+                
+                if(!initialized_) {
+                    // Verificación de seguridad inicial
+                    if (q_current_.norm() < 0.001) {
+                         // Evitar inicializar si leemos todo ceros (joint states aun no llega bien)
+                         return;
+                    }
+                    
+                    q_cmd_ = q_current_;
+                    pinocchio::forwardKinematics(model_, data_, q_current_);
+                    pinocchio::framesForwardKinematics(model_, data_, q_current_);
+                    p_start_ = data_.oMf[ee_id_].translation();
+                    R_start_ = data_.oMf[ee_id_].rotation();
+                    t0_ = this->now().seconds();
+                    initialized_ = true;
+                    RCLCPP_INFO(this->get_logger(), "Robot Ready. Initial Pos: [%.2f, %.2f, %.2f]", 
+                        p_start_(0), p_start_(1), p_start_(2));
+                }
+            });
+        
+        sub_phantom_ = this->create_subscription<geometry_msgs::msg::PoseStamped>(
+            "/phantom/pose", 10, [this](geometry_msgs::msg::PoseStamped::SharedPtr msg) {
+                phantom_pos_current_ << msg->pose.position.x, msg->pose.position.y, msg->pose.position.z;
+                phantom_quat_current_ = Eigen::Quaterniond(msg->pose.orientation.w, msg->pose.orientation.x, msg->pose.orientation.y, msg->pose.orientation.z);
+                
+                if(initialized_ && !haptic_initialized_) {
+                    phantom_pos_initial_ = phantom_pos_current_;
+                    phantom_quat_initial_ = phantom_quat_current_;
+                    haptic_initialized_ = true;
+                    tracking_active_ = true;
+                    RCLCPP_INFO(this->get_logger(), "Haptic Active.");
+                }
+            });
+        
+        pub_cmd_ = this->create_publisher<trajectory_msgs::msg::JointTrajectory>("/" + ctrl_name + "/joint_trajectory", 10);
+        timer_ = this->create_wall_timer(std::chrono::duration<double>(1.0/ctrl_hz), std::bind(&OptTeleop::control_loop, this));
+        csv_file_.open("/home/utec/try_opt/teleop_final.csv");
+    }
+    
+    ~OptTeleop() { if(csv_file_.is_open()) csv_file_.close(); }
+
+private:
+    void control_loop() {
+        if(!initialized_) return;
+        
+        Eigen::Vector3d p_des, rot_vec_robot;
+        Eigen::Matrix3d R_des;
+        
+        if(tracking_active_ && haptic_initialized_) {
+            // Posición
+            Eigen::Vector3d offset_raw = phantom_pos_current_ - phantom_pos_initial_;
+            Eigen::Vector3d offset_robot;
+            offset_robot(0) = offset_raw(map_x_) * sign_x_; 
+            offset_robot(1) = offset_raw(map_y_) * sign_y_; 
+            offset_robot(2) = offset_raw(map_z_) * sign_z_; 
+            p_des = p_start_ + (R_start_ * offset_robot * haptic_scale_pos_);
+            
+            // Orientación
+            Eigen::Quaterniond q_delta = phantom_quat_current_ * phantom_quat_initial_.inverse();
+            Eigen::AngleAxisd aa(q_delta);
+            Eigen::Vector3d rot_vec_raw = aa.axis() * aa.angle();
+            
+            rot_vec_robot(0) = rot_vec_raw(map_roll_) * sign_roll_;  
+            rot_vec_robot(1) = rot_vec_raw(map_pitch_) * sign_pitch_; 
+            rot_vec_robot(2) = rot_vec_raw(map_yaw_) * sign_yaw_;   
+            
+            double angle_new = rot_vec_robot.norm();
+            Eigen::Matrix3d R_offset;
+            if (angle_new > 1e-6) {
+                R_offset = Eigen::AngleAxisd(angle_new * haptic_scale_rot_, rot_vec_robot.normalized()).toRotationMatrix();
+            } else {
+                R_offset = Eigen::Matrix3d::Identity();
+            }
+            R_des = R_start_ * R_offset; 
+            
+        } else {
+            p_des = p_start_;
+            R_des = R_start_;
+        }
+        
+        // --- PROTECCIÓN CONTRA DRIFT ---
+        // Si el robot se ha alejado mucho de lo que comandamos (por lag o colisión), 
+        // reiniciamos el comando a la posición actual para evitar el error de tolerancia.
+        Eigen::VectorXd dq_real = q_cmd_ - q_current_;
+        if(dq_real.norm() > 0.5) { // 0.5 rad es bastante, ajusta si es necesario
+             RCLCPP_WARN(this->get_logger(), "Drift detected! Resetting command to current state.");
+             q_cmd_ = q_current_;
+        }
+
+        // --- IK LOOP ---
+        for(int iter=0; iter<5; ++iter) {
+            pinocchio::forwardKinematics(model_, data_, q_cmd_);
+            pinocchio::framesForwardKinematics(model_, data_, q_cmd_);
+            Eigen::MatrixXd J(6, nq_);
+            pinocchio::computeFrameJacobian(model_, data_, q_cmd_, ee_id_, pinocchio::LOCAL_WORLD_ALIGNED, J);
+            
+            Eigen::Vector3d e_pos = p_des - data_.oMf[ee_id_].translation();
+            Eigen::Matrix3d R_err = R_des * data_.oMf[ee_id_].rotation().transpose();
+            Eigen::Vector3d e_rot;
+            e_rot << R_err(2,1)-R_err(1,2), R_err(0,2)-R_err(2,0), R_err(1,0)-R_err(0,1);
+            e_rot *= 0.5;
+            
+            Eigen::VectorXd e(6); e << e_pos, e_rot;
+            if(e.norm() < 1e-4) break;
+            
+            Eigen::MatrixXd H = J.transpose() * J + 0.005 * Eigen::MatrixXd::Identity(nq_, nq_);
+            q_cmd_ += H.ldlt().solve(-J.transpose() * e);
+        }
+        
+        // --- LIMITES DE JOINT CORRECTOS ---
+        for(int i=0; i<nq_; ++i) {
+            q_cmd_(i) = std::clamp(q_cmd_(i), q_min_(i), q_max_(i));
+        }
+
+        trajectory_msgs::msg::JointTrajectory cmd;
+        cmd.header.stamp = this->now();
+        cmd.joint_names = joint_names_;
+        trajectory_msgs::msg::JointTrajectoryPoint pt;
+        pt.positions.assign(q_cmd_.data(), q_cmd_.data()+nq_);
+        
+        // Un tiempo un poco más holgado para evitar errores si el paso es grande
+        pt.time_from_start = rclcpp::Duration::from_seconds(0.01); 
+        cmd.points.push_back(pt);
+        pub_cmd_->publish(cmd);
+    }
+};
+
+int main(int argc, char** argv) {
+    rclcpp::init(argc, argv);
+    rclcpp::spin(std::make_shared<OptTeleop>());
+    rclcpp::shutdown();
+    return 0;
+}
+```

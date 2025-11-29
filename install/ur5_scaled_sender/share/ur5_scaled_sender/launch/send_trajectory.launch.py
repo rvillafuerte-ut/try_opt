@@ -15,7 +15,7 @@ def _launch_setup(context, *args, **kwargs):
     try:
         positions = [float(x) for x in positions_csv.split(',') if x.strip() != '']
     except Exception:
-        positions = [0.0, -1.57, 1.57, 0.0, 0.0, 0.0]
+        positions = [0.0, -1.9, 1.7, -1.7, -1.57, 0.0]
 
     # Default UR5 joint names
     default_joint_names = [
@@ -56,7 +56,7 @@ def generate_launch_description():
             default_value='shoulder_pan_joint,shoulder_lift_joint,elbow_joint,wrist_1_joint,wrist_2_joint,wrist_3_joint',
             description='Comma-separated joint names in controller order'),
         DeclareLaunchArgument(
-            'positions', default_value='0.0,-1.57,1.57,0.0,0.0,0.0',
+            'positions', default_value='0.0,-1.57.,1.57,0.0,0.0,0.0',
             description='Comma-separated target joint positions (rad) for 6 UR5 joints'),
         DeclareLaunchArgument(
             'time_from_start_sec', default_value='2.0',

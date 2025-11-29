@@ -1,0 +1,36 @@
+# ROS 2 build artifacts
+build/
+install/
+log/
+.colcon_cache/
+
+# Python
+venv/
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+ENV/
+
+# Data and plots
+*.csv
+plots/
+*.png
+*.jpg
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Calibration files (keep example, ignore user-specific)
+config/*_user.yaml
+
+# Temp files
+*.tmp
+*.bak
+*.log

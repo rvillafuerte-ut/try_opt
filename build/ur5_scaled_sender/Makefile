@@ -249,6 +249,19 @@ opt_teleop_pinocchio/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/opt_teleop_pinocchio.dir/build.make CMakeFiles/opt_teleop_pinocchio.dir/build
 .PHONY : opt_teleop_pinocchio/fast
 
+#=============================================================================
+# Target rules for targets named opt_teleop_haptic
+
+# Build rule for target.
+opt_teleop_haptic: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 opt_teleop_haptic
+.PHONY : opt_teleop_haptic
+
+# fast build rule for target.
+opt_teleop_haptic/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/opt_teleop_haptic.dir/build.make CMakeFiles/opt_teleop_haptic.dir/build
+.PHONY : opt_teleop_haptic/fast
+
 src/joint_trajectory_publisher.o: src/joint_trajectory_publisher.cpp.o
 .PHONY : src/joint_trajectory_publisher.o
 
@@ -296,6 +309,30 @@ src/opt_teleop.s: src/opt_teleop.cpp.s
 src/opt_teleop.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/opt_teleop.dir/build.make CMakeFiles/opt_teleop.dir/src/opt_teleop.cpp.s
 .PHONY : src/opt_teleop.cpp.s
+
+src/opt_teleop_haptic.o: src/opt_teleop_haptic.cpp.o
+.PHONY : src/opt_teleop_haptic.o
+
+# target to build an object file
+src/opt_teleop_haptic.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/opt_teleop_haptic.dir/build.make CMakeFiles/opt_teleop_haptic.dir/src/opt_teleop_haptic.cpp.o
+.PHONY : src/opt_teleop_haptic.cpp.o
+
+src/opt_teleop_haptic.i: src/opt_teleop_haptic.cpp.i
+.PHONY : src/opt_teleop_haptic.i
+
+# target to preprocess a source file
+src/opt_teleop_haptic.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/opt_teleop_haptic.dir/build.make CMakeFiles/opt_teleop_haptic.dir/src/opt_teleop_haptic.cpp.i
+.PHONY : src/opt_teleop_haptic.cpp.i
+
+src/opt_teleop_haptic.s: src/opt_teleop_haptic.cpp.s
+.PHONY : src/opt_teleop_haptic.s
+
+# target to generate assembly for a file
+src/opt_teleop_haptic.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/opt_teleop_haptic.dir/build.make CMakeFiles/opt_teleop_haptic.dir/src/opt_teleop_haptic.cpp.s
+.PHONY : src/opt_teleop_haptic.cpp.s
 
 src/opt_teleop_pinocchio.o: src/opt_teleop_pinocchio.cpp.o
 .PHONY : src/opt_teleop_pinocchio.o
@@ -361,6 +398,7 @@ help:
 	@echo "... uninstall"
 	@echo "... ur5_scaled_sender_uninstall"
 	@echo "... opt_teleop"
+	@echo "... opt_teleop_haptic"
 	@echo "... opt_teleop_pinocchio"
 	@echo "... scaled_traj_publisher"
 	@echo "... test_jacobian"
@@ -370,6 +408,9 @@ help:
 	@echo "... src/opt_teleop.o"
 	@echo "... src/opt_teleop.i"
 	@echo "... src/opt_teleop.s"
+	@echo "... src/opt_teleop_haptic.o"
+	@echo "... src/opt_teleop_haptic.i"
+	@echo "... src/opt_teleop_haptic.s"
 	@echo "... src/opt_teleop_pinocchio.o"
 	@echo "... src/opt_teleop_pinocchio.i"
 	@echo "... src/opt_teleop_pinocchio.s"

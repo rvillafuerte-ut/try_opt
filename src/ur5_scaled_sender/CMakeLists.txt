@@ -9,6 +9,7 @@ find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(trajectory_msgs REQUIRED)
 find_package(sensor_msgs REQUIRED)
+find_package(geometry_msgs REQUIRED)
 find_package(eigen3_cmake_module REQUIRED)
 find_package(Eigen3 3.3 REQUIRED NO_MODULE)
 find_package(yaml-cpp REQUIRED)
@@ -33,7 +34,12 @@ ament_target_dependencies(opt_teleop_pinocchio rclcpp trajectory_msgs sensor_msg
 target_include_directories(opt_teleop_pinocchio PRIVATE ${EIGEN3_INCLUDE_DIRS} ${pinocchio_INCLUDE_DIRS})
 target_link_libraries(opt_teleop_pinocchio Eigen3::Eigen ${pinocchio_LIBRARIES})
 
-install(TARGETS scaled_traj_publisher opt_teleop test_jacobian opt_teleop_pinocchio
+add_executable(opt_teleop_haptic src/opt_teleop_haptic.cpp)
+ament_target_dependencies(opt_teleop_haptic rclcpp trajectory_msgs sensor_msgs geometry_msgs)
+target_include_directories(opt_teleop_haptic PRIVATE ${EIGEN3_INCLUDE_DIRS} ${pinocchio_INCLUDE_DIRS})
+target_link_libraries(opt_teleop_haptic Eigen3::Eigen ${pinocchio_LIBRARIES})
+
+install(TARGETS scaled_traj_publisher opt_teleop test_jacobian opt_teleop_pinocchio opt_teleop_haptic
   DESTINATION lib/${PROJECT_NAME})
 
 install(DIRECTORY launch/
