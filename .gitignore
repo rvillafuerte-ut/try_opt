@@ -3,6 +3,7 @@ build/
 install/
 log/
 .colcon_cache/
+logs/
 
 # Python
 venv/

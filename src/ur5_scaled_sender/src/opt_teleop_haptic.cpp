@@ -73,21 +73,32 @@ public:
         haptic_scale_pos_ = this->declare_parameter<double>("haptic_scale_pos", 1.0);
         haptic_scale_rot_ = this->declare_parameter<double>("haptic_scale_rot", 1.0);
         
-        // Axis inversion parameters
-        sign_x_ = this->declare_parameter<double>("sign_x", 1.0);
-        sign_y_ = this->declare_parameter<double>("sign_y", 1.0);
-        sign_z_ = this->declare_parameter<double>("sign_z", -1.0);
-        sign_roll_ = this->declare_parameter<double>("sign_roll", -1.0);
-        sign_pitch_ = this->declare_parameter<double>("sign_pitch", 1.0);
-        sign_yaw_ = this->declare_parameter<double>("sign_yaw", 1.0);
         
-        // Axis remapping parameters
-        map_x_ = this->declare_parameter<int>("map_x", 0);
-        map_y_ = this->declare_parameter<int>("map_y", 1);
-        map_z_ = this->declare_parameter<int>("map_z", 2);
-        map_roll_ = this->declare_parameter<int>("map_roll", 0);
-        map_pitch_ = this->declare_parameter<int>("map_pitch", 1);
-        map_yaw_ = this->declare_parameter<int>("map_yaw", 2);
+       // POSICIÓN: Alineación Phantom RAW -> UR5 Base
+        // Robot X (Adelante) <-> Phantom Z (Profundidad, Index 2). Invertido.
+        map_x_ = this->declare_parameter<int>("map_x", 2);
+        sign_x_ = this->declare_parameter<double>("sign_x", -1.0);
+
+        // Robot Y (Lateral) <-> Phantom X (Lateral, Index 0). Invertido.
+        map_y_ = this->declare_parameter<int>("map_y", 0);
+        sign_y_ = this->declare_parameter<double>("sign_y", -1.0);
+
+        // Robot Z (Arriba) <-> Phantom Y (Vertical, Index 1). Normal.
+        map_z_ = this->declare_parameter<int>("map_z", 1);
+        sign_z_ = this->declare_parameter<double>("sign_z", 1.0);
+
+        // ORIENTACIÓN: Indices descubiertos en tus LOGS
+        // Robot Roll (X) <-> Phantom Index 2 (Roll/Muñeca)
+        map_roll_ = this->declare_parameter<int>("map_roll", 2);
+        sign_roll_ = this->declare_parameter<double>("sign_roll", 1.0);
+
+        // Robot Pitch (Y) <-> Phantom Index 0 (Stylus Arriba/Abajo - Confirmado en Log)
+        map_pitch_ = this->declare_parameter<int>("map_pitch", 0);
+        sign_pitch_ = this->declare_parameter<double>("sign_pitch", 1.0);
+
+        // Robot Yaw (Z) <-> Phantom Index 1 (Base - Confirmado en Log)
+        map_yaw_ = this->declare_parameter<int>("map_yaw", 1);
+        sign_yaw_ = this->declare_parameter<double>("sign_yaw", 1.0);
         
         // Build Pinocchio model
         pinocchio::urdf::buildModel(urdf_path, model_);

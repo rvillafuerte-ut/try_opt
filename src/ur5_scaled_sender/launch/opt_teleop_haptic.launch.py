@@ -31,7 +31,7 @@ def generate_launch_description():
         
         # Axis inversion arguments
         DeclareLaunchArgument('sign_x', default_value='1.0', description='X axis sign (1.0 or -1.0)'),
-        DeclareLaunchArgument('sign_y', default_value='-1.0', description='Y axis sign (1.0 or -1.0)'),
+        DeclareLaunchArgument('sign_y', default_value='1.0', description='Y axis sign (1.0 or -1.0)'),
         DeclareLaunchArgument('sign_z', default_value='-1.0', description='Z axis sign (1.0 or -1.0)'),
         DeclareLaunchArgument('sign_roll', default_value='1.0', description='Roll sign (1.0 or -1.0)'),
         DeclareLaunchArgument('sign_pitch', default_value='-1.0', description='Pitch sign (1.0 or -1.0)'),
@@ -39,8 +39,8 @@ def generate_launch_description():
         
         # Axis remapping arguments (0=X/Roll, 1=Y/Pitch, 2=Z/Yaw)
         DeclareLaunchArgument('map_x', default_value='0', description='Which phantom axis for robot X (0=X, 1=Y, 2=Z)'),
-        DeclareLaunchArgument('map_y', default_value='1', description='Which phantom axis for robot Y (0=X, 1=Y, 2=Z)'),
-        DeclareLaunchArgument('map_z', default_value='2', description='Which phantom axis for robot Z (0=X, 1=Y, 2=Z)'),
+        DeclareLaunchArgument('map_y', default_value='2', description='Which phantom axis for robot Y (0=X, 1=Y, 2=Z)'),
+        DeclareLaunchArgument('map_z', default_value='1', description='Which phantom axis for robot Z (0=X, 1=Y, 2=Z)'),
         DeclareLaunchArgument('map_roll', default_value='0', description='Which phantom axis for robot Roll (0=R, 1=P, 2=Y)'),
         DeclareLaunchArgument('map_pitch', default_value='1', description='Which phantom axis for robot Pitch (0=R, 1=P, 2=Y)'),
         DeclareLaunchArgument('map_yaw', default_value='2', description='Which phantom axis for robot Yaw (0=R, 1=P, 2=Y)'),
