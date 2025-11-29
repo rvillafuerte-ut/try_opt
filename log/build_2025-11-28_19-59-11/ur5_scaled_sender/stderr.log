@@ -1,0 +1,26 @@
+[01m[K/home/utec/try_opt/src/ur5_scaled_sender/src/opt_teleop.cpp:[m[K In member function ‘[01m[Kvoid OptTeleop::control_loop()[m[K’:
+[01m[K/home/utec/try_opt/src/ur5_scaled_sender/src/opt_teleop.cpp:130:13:[m[K [01;31m[Kerror: [m[K‘[01m[Kstuck_count_[m[K’ was not declared in this scope
+  130 |             [01;31m[Kstuck_count_[m[K = 0;
+      |             [01;31m[K^~~~~~~~~~~~[m[K
+[01m[K/home/utec/try_opt/src/ur5_scaled_sender/src/opt_teleop.cpp:136:13:[m[K [01;31m[Kerror: [m[K‘[01m[Kkin_[m[K’ was not declared in this scope
+  136 |             [01;31m[Kkin_[m[K.compute(q_cmd_, T_ee, J);
+      |             [01;31m[K^~~~[m[K
+[01m[K/home/utec/try_opt/src/ur5_scaled_sender/src/opt_teleop.cpp:136:34:[m[K [01;31m[Kerror: [m[K‘[01m[KT_ee[m[K’ was not declared in this scope
+  136 |             kin_.compute(q_cmd_, [01;31m[KT_ee[m[K, J);
+      |                                  [01;31m[K^~~~[m[K
+[01m[K/home/utec/try_opt/src/ur5_scaled_sender/src/opt_teleop.cpp:136:40:[m[K [01;31m[Kerror: [m[K‘[01m[KJ[m[K’ was not declared in this scope
+  136 |             kin_.compute(q_cmd_, T_ee, [01;31m[KJ[m[K);
+      |                                        [01;31m[K^[m[K
+[01m[K/home/utec/try_opt/src/ur5_scaled_sender/src/opt_teleop.cpp:222:9:[m[K [01;31m[Kerror: [m[K‘[01m[Kkin_[m[K’ was not declared in this scope
+  222 |         [01;31m[Kkin_[m[K.compute(q_cmd_, T_ee, J);
+      |         [01;31m[K^~~~[m[K
+[01m[K/home/utec/try_opt/src/ur5_scaled_sender/src/opt_teleop.cpp:222:30:[m[K [01;31m[Kerror: [m[K‘[01m[KT_ee[m[K’ was not declared in this scope
+  222 |         kin_.compute(q_cmd_, [01;31m[KT_ee[m[K, J);
+      |                              [01;31m[K^~~~[m[K
+[01m[K/home/utec/try_opt/src/ur5_scaled_sender/src/opt_teleop.cpp:222:36:[m[K [01;31m[Kerror: [m[K‘[01m[KJ[m[K’ was not declared in this scope
+  222 |         kin_.compute(q_cmd_, T_ee, [01;31m[KJ[m[K);
+      |                                    [01;31m[K^[m[K
+gmake[2]: *** [CMakeFiles/opt_teleop.dir/build.make:76: CMakeFiles/opt_teleop.dir/src/opt_teleop.cpp.o] Error 1
+gmake[1]: *** [CMakeFiles/Makefile2:169: CMakeFiles/opt_teleop.dir/all] Error 2
+gmake[1]: *** Waiting for unfinished jobs....
+gmake: *** [Makefile:146: all] Error 2

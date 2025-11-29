@@ -1,0 +1,31 @@
+[0.008s] Invoking command in '/home/utec/try_opt/build/ur5_scaled_sender': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --build /home/utec/try_opt/build/ur5_scaled_sender -- -j8 -l8
+[0.050s] Consolidate compiler generated dependencies of target opt_teleop
+[0.061s] [ 50%] Built target scaled_traj_publisher
+[0.063s] [ 75%] Building CXX object CMakeFiles/opt_teleop.dir/src/opt_teleop.cpp.o
+[14.076s] [100%] Linking CXX executable opt_teleop
+[14.715s] [100%] Built target opt_teleop
+[14.725s] Invoked command in '/home/utec/try_opt/build/ur5_scaled_sender' returned '0': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --build /home/utec/try_opt/build/ur5_scaled_sender -- -j8 -l8
+[14.732s] Invoking command in '/home/utec/try_opt/build/ur5_scaled_sender': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --install /home/utec/try_opt/build/ur5_scaled_sender
+[14.740s] -- Install configuration: ""
+[14.740s] -- Up-to-date: /home/utec/try_opt/install/ur5_scaled_sender/lib/ur5_scaled_sender/scaled_traj_publisher
+[14.740s] -- Installing: /home/utec/try_opt/install/ur5_scaled_sender/lib/ur5_scaled_sender/opt_teleop
+[14.744s] -- Set runtime path of "/home/utec/try_opt/install/ur5_scaled_sender/lib/ur5_scaled_sender/opt_teleop" to ""
+[14.744s] -- Up-to-date: /home/utec/try_opt/install/ur5_scaled_sender/share/ur5_scaled_sender/launch
+[14.744s] -- Up-to-date: /home/utec/try_opt/install/ur5_scaled_sender/share/ur5_scaled_sender/launch/send_trajectory.launch.py
+[14.744s] -- Up-to-date: /home/utec/try_opt/install/ur5_scaled_sender/share/ur5_scaled_sender/launch/opt_teleop.launch.py
+[14.744s] -- Up-to-date: /home/utec/try_opt/install/ur5_scaled_sender/share/ament_index/resource_index/package_run_dependencies/ur5_scaled_sender
+[14.744s] -- Up-to-date: /home/utec/try_opt/install/ur5_scaled_sender/share/ament_index/resource_index/parent_prefix_path/ur5_scaled_sender
+[14.744s] -- Up-to-date: /home/utec/try_opt/install/ur5_scaled_sender/share/ur5_scaled_sender/environment/ament_prefix_path.sh
+[14.744s] -- Up-to-date: /home/utec/try_opt/install/ur5_scaled_sender/share/ur5_scaled_sender/environment/ament_prefix_path.dsv
+[14.744s] -- Up-to-date: /home/utec/try_opt/install/ur5_scaled_sender/share/ur5_scaled_sender/environment/path.sh
+[14.744s] -- Up-to-date: /home/utec/try_opt/install/ur5_scaled_sender/share/ur5_scaled_sender/environment/path.dsv
+[14.744s] -- Up-to-date: /home/utec/try_opt/install/ur5_scaled_sender/share/ur5_scaled_sender/local_setup.bash
+[14.744s] -- Up-to-date: /home/utec/try_opt/install/ur5_scaled_sender/share/ur5_scaled_sender/local_setup.sh
+[14.744s] -- Up-to-date: /home/utec/try_opt/install/ur5_scaled_sender/share/ur5_scaled_sender/local_setup.zsh
+[14.744s] -- Up-to-date: /home/utec/try_opt/install/ur5_scaled_sender/share/ur5_scaled_sender/local_setup.dsv
+[14.744s] -- Installing: /home/utec/try_opt/install/ur5_scaled_sender/share/ur5_scaled_sender/package.dsv
+[14.744s] -- Up-to-date: /home/utec/try_opt/install/ur5_scaled_sender/share/ament_index/resource_index/packages/ur5_scaled_sender
+[14.744s] -- Up-to-date: /home/utec/try_opt/install/ur5_scaled_sender/share/ur5_scaled_sender/cmake/ur5_scaled_senderConfig.cmake
+[14.744s] -- Up-to-date: /home/utec/try_opt/install/ur5_scaled_sender/share/ur5_scaled_sender/cmake/ur5_scaled_senderConfig-version.cmake
+[14.744s] -- Up-to-date: /home/utec/try_opt/install/ur5_scaled_sender/share/ur5_scaled_sender/package.xml
+[14.745s] Invoked command in '/home/utec/try_opt/build/ur5_scaled_sender' returned '0': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --install /home/utec/try_opt/build/ur5_scaled_sender

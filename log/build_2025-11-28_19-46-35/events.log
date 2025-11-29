@@ -1,0 +1,188 @@
+[0.000000] (-) TimerEvent: {}
+[0.000327] (ur5_scaled_sender) JobQueued: {'identifier': 'ur5_scaled_sender', 'dependencies': OrderedDict()}
+[0.000489] (ur5_scaled_sender) JobStarted: {'identifier': 'ur5_scaled_sender'}
+[0.005726] (ur5_scaled_sender) JobProgress: {'identifier': 'ur5_scaled_sender', 'progress': 'cmake'}
+[0.006194] (ur5_scaled_sender) JobProgress: {'identifier': 'ur5_scaled_sender', 'progress': 'build'}
+[0.006673] (ur5_scaled_sender) Command: {'cmd': ['/usr/bin/cmake', '--build', '/home/utec/try_opt/build/ur5_scaled_sender', '--', '-j8', '-l8'], 'cwd': '/home/utec/try_opt/build/ur5_scaled_sender', 'env': OrderedDict([('PYTHON_BASIC_REPL', '1'), ('LESSOPEN', '| /usr/bin/lesspipe %s'), ('LANGUAGE', 'en'), ('USER', 'utec'), ('LC_TIME', 'es_PE.UTF-8'), ('XDG_SESSION_TYPE', 'wayland'), ('GIT_ASKPASS', '/usr/share/code/resources/app/extensions/git/dist/askpass.sh'), ('SHLVL', '2'), ('LD_LIBRARY_PATH', '/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib'), ('HOME', '/home/utec'), ('CHROME_DESKTOP', 'code.desktop'), ('OLDPWD', '/home/utec/try_opt'), ('TERM_PROGRAM_VERSION', '1.106.3'), ('DESKTOP_SESSION', 'ubuntu'), ('OH_SDK_BASE', '/opt/OpenHaptics/Developer/3.4-0'), ('ROS_PYTHON_VERSION', '3'), ('GNOME_SHELL_SESSION_MODE', 'ubuntu'), ('GTK_MODULES', 'gail:atk-bridge'), ('VSCODE_GIT_ASKPASS_MAIN', '/usr/share/code/resources/app/extensions/git/dist/askpass-main.js'), ('LC_MONETARY', 'es_PE.UTF-8'), ('VSCODE_GIT_ASKPASS_NODE', '/usr/share/code/code'), ('PYDEVD_DISABLE_FILE_VALIDATION', '1'), ('SYSTEMD_EXEC_PID', '2146'), ('BUNDLED_DEBUGPY_PATH', '/home/utec/.vscode/extensions/ms-python.debugpy-2025.16.0-linux-x64/bundled/libs/debugpy'), ('VSCODE_PYTHON_AUTOACTIVATE_GUARD', '1'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1000/bus'), ('COLORTERM', 'truecolor'), ('IM_CONFIG_PHASE', '1'), ('WAYLAND_DISPLAY', 'wayland-0'), ('ROS_DISTRO', 'humble'), ('LOGNAME', 'utec'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('XDG_SESSION_CLASS', 'user'), ('USERNAME', 'utec'), ('TERM', 'xterm-256color'), ('GNOME_DESKTOP_SESSION_ID', 'this-is-deprecated'), ('ROS_LOCALHOST_ONLY', '0'), ('PATH', '/opt/ros/humble/bin:/home/utec/.config/Code/User/globalStorage/github.copilot-chat/copilotCli:/home/utec/.config/Code/User/globalStorage/github.copilot-chat/debugCommand:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin:/home/utec/.vscode/extensions/ms-python.debugpy-2025.16.0-linux-x64/bundled/scripts/noConfigScripts'), ('SESSION_MANAGER', 'local/utec-ThinkPad-E15-Gen-2:@/tmp/.ICE-unix/1959,unix/utec-ThinkPad-E15-Gen-2:/tmp/.ICE-unix/1959'), ('PAPERSIZE', 'a4'), ('XDG_MENU_PREFIX', 'gnome-'), ('LC_ADDRESS', 'es_PE.UTF-8'), ('GNOME_TERMINAL_SCREEN', '/org/gnome/Terminal/screen/5fa5812b_94d5_4d58_9c69_58b767a54dc4'), ('GNOME_SETUP_DISPLAY', ':1'), ('XDG_RUNTIME_DIR', '/run/user/1000'), ('GDK_BACKEND', 'x11'), ('DISPLAY', ':0'), ('VSCODE_DEBUGPY_ADAPTER_ENDPOINTS', '/home/utec/.vscode/extensions/ms-python.debugpy-2025.16.0-linux-x64/.noConfigDebugAdapterEndpoints/endpoint-bb576b575c1a7e2d.txt'), ('LANG', 'en_US.UTF-8'), ('XDG_CURRENT_DESKTOP', 'Unity'), ('PYTHONSTARTUP', '/home/utec/.config/Code/User/workspaceStorage/de6342ca979a64c727de50d867ecd2d7/ms-python.python/pythonrc.py'), ('LC_TELEPHONE', 'es_PE.UTF-8'), ('XMODIFIERS', '@im=ibus'), ('XDG_SESSION_DESKTOP', 'ubuntu'), ('XAUTHORITY', '/run/user/1000/.mutter-Xwaylandauth.6MDRG3'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('VSCODE_GIT_IPC_HANDLE', '/run/user/1000/vscode-git-b43e6ba8bb.sock'), ('GNOME_TERMINAL_SERVICE', ':1.116'), ('TERM_PROGRAM', 'vscode'), ('SSH_AGENT_LAUNCHER', 'gnome-keyring'), ('SSH_AUTH_SOCK', '/run/user/1000/keyring/ssh'), ('AMENT_PREFIX_PATH', '/opt/ros/humble'), ('ORIGINAL_XDG_CURRENT_DESKTOP', 'ubuntu:GNOME'), ('SHELL', '/bin/bash'), ('LC_NAME', 'es_PE.UTF-8'), ('QT_ACCESSIBILITY', '1'), ('GDMSESSION', 'ubuntu'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('LC_MEASUREMENT', 'es_PE.UTF-8'), ('LC_IDENTIFICATION', 'es_PE.UTF-8'), ('VSCODE_GIT_ASKPASS_EXTRA_ARGS', ''), ('GIT_PAGER', 'cat'), ('QT_IM_MODULE', 'ibus'), ('PWD', '/home/utec/try_opt/build/ur5_scaled_sender'), ('LC_ALL', 'en_US.UTF-8'), ('XDG_CONFIG_DIRS', '/etc/xdg/xdg-ubuntu:/etc/xdg'), ('XDG_DATA_DIRS', '/usr/share/ubuntu:/home/utec/.local/share/flatpak/exports/share:/var/lib/flatpak/exports/share:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop'), ('PYTHONPATH', '/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages'), ('LC_NUMERIC', 'es_PE.UTF-8'), ('LC_PAPER', 'es_PE.UTF-8'), ('COLCON', '1'), ('VTE_VERSION', '6800'), ('CMAKE_PREFIX_PATH', '/opt/ros/humble')]), 'shell': False}
+[0.056318] (ur5_scaled_sender) StdoutLine: {'line': b'[ 33%] Built target test_jacobian\n'}
+[0.060846] (ur5_scaled_sender) StdoutLine: {'line': b'[ 50%] \x1b[32mBuilding CXX object CMakeFiles/opt_teleop.dir/src/opt_teleop.cpp.o\x1b[0m\n'}
+[0.061631] (ur5_scaled_sender) StdoutLine: {'line': b'[ 83%] Built target scaled_traj_publisher\n'}
+[0.099827] (-) TimerEvent: {}
+[0.200104] (-) TimerEvent: {}
+[0.300405] (-) TimerEvent: {}
+[0.400669] (-) TimerEvent: {}
+[0.500917] (-) TimerEvent: {}
+[0.601153] (-) TimerEvent: {}
+[0.701411] (-) TimerEvent: {}
+[0.801637] (-) TimerEvent: {}
+[0.901973] (-) TimerEvent: {}
+[1.002246] (-) TimerEvent: {}
+[1.102517] (-) TimerEvent: {}
+[1.202774] (-) TimerEvent: {}
+[1.303072] (-) TimerEvent: {}
+[1.403333] (-) TimerEvent: {}
+[1.503598] (-) TimerEvent: {}
+[1.603837] (-) TimerEvent: {}
+[1.704109] (-) TimerEvent: {}
+[1.804439] (-) TimerEvent: {}
+[1.904716] (-) TimerEvent: {}
+[2.004980] (-) TimerEvent: {}
+[2.105234] (-) TimerEvent: {}
+[2.205512] (-) TimerEvent: {}
+[2.305814] (-) TimerEvent: {}
+[2.406203] (-) TimerEvent: {}
+[2.506475] (-) TimerEvent: {}
+[2.606743] (-) TimerEvent: {}
+[2.707029] (-) TimerEvent: {}
+[2.807294] (-) TimerEvent: {}
+[2.907560] (-) TimerEvent: {}
+[3.007805] (-) TimerEvent: {}
+[3.108091] (-) TimerEvent: {}
+[3.208502] (-) TimerEvent: {}
+[3.309141] (-) TimerEvent: {}
+[3.409586] (-) TimerEvent: {}
+[3.510108] (-) TimerEvent: {}
+[3.610616] (-) TimerEvent: {}
+[3.710872] (-) TimerEvent: {}
+[3.811274] (-) TimerEvent: {}
+[3.911769] (-) TimerEvent: {}
+[4.012136] (-) TimerEvent: {}
+[4.112490] (-) TimerEvent: {}
+[4.212792] (-) TimerEvent: {}
+[4.313062] (-) TimerEvent: {}
+[4.413326] (-) TimerEvent: {}
+[4.513586] (-) TimerEvent: {}
+[4.613833] (-) TimerEvent: {}
+[4.714096] (-) TimerEvent: {}
+[4.814374] (-) TimerEvent: {}
+[4.914686] (-) TimerEvent: {}
+[5.014927] (-) TimerEvent: {}
+[5.115183] (-) TimerEvent: {}
+[5.215444] (-) TimerEvent: {}
+[5.315702] (-) TimerEvent: {}
+[5.415961] (-) TimerEvent: {}
+[5.516224] (-) TimerEvent: {}
+[5.616490] (-) TimerEvent: {}
+[5.716748] (-) TimerEvent: {}
+[5.817037] (-) TimerEvent: {}
+[5.917312] (-) TimerEvent: {}
+[6.017598] (-) TimerEvent: {}
+[6.117848] (-) TimerEvent: {}
+[6.218114] (-) TimerEvent: {}
+[6.318382] (-) TimerEvent: {}
+[6.418636] (-) TimerEvent: {}
+[6.518892] (-) TimerEvent: {}
+[6.619155] (-) TimerEvent: {}
+[6.719412] (-) TimerEvent: {}
+[6.819641] (-) TimerEvent: {}
+[6.919890] (-) TimerEvent: {}
+[7.020169] (-) TimerEvent: {}
+[7.120444] (-) TimerEvent: {}
+[7.220696] (-) TimerEvent: {}
+[7.320971] (-) TimerEvent: {}
+[7.421256] (-) TimerEvent: {}
+[7.521521] (-) TimerEvent: {}
+[7.621784] (-) TimerEvent: {}
+[7.722069] (-) TimerEvent: {}
+[7.822523] (-) TimerEvent: {}
+[7.923655] (-) TimerEvent: {}
+[8.024225] (-) TimerEvent: {}
+[8.124479] (-) TimerEvent: {}
+[8.224770] (-) TimerEvent: {}
+[8.325278] (-) TimerEvent: {}
+[8.425850] (-) TimerEvent: {}
+[8.526613] (-) TimerEvent: {}
+[8.626933] (-) TimerEvent: {}
+[8.727308] (-) TimerEvent: {}
+[8.827969] (-) TimerEvent: {}
+[8.928274] (-) TimerEvent: {}
+[9.028729] (-) TimerEvent: {}
+[9.129214] (-) TimerEvent: {}
+[9.229507] (-) TimerEvent: {}
+[9.329752] (-) TimerEvent: {}
+[9.430010] (-) TimerEvent: {}
+[9.530825] (-) TimerEvent: {}
+[9.631071] (-) TimerEvent: {}
+[9.731308] (-) TimerEvent: {}
+[9.831556] (-) TimerEvent: {}
+[9.931782] (-) TimerEvent: {}
+[10.032024] (-) TimerEvent: {}
+[10.132266] (-) TimerEvent: {}
+[10.232525] (-) TimerEvent: {}
+[10.332754] (-) TimerEvent: {}
+[10.433008] (-) TimerEvent: {}
+[10.533278] (-) TimerEvent: {}
+[10.633525] (-) TimerEvent: {}
+[10.733753] (-) TimerEvent: {}
+[10.834016] (-) TimerEvent: {}
+[10.934262] (-) TimerEvent: {}
+[11.034522] (-) TimerEvent: {}
+[11.134762] (-) TimerEvent: {}
+[11.234999] (-) TimerEvent: {}
+[11.335263] (-) TimerEvent: {}
+[11.435516] (-) TimerEvent: {}
+[11.535750] (-) TimerEvent: {}
+[11.635997] (-) TimerEvent: {}
+[11.736273] (-) TimerEvent: {}
+[11.836616] (-) TimerEvent: {}
+[11.936840] (-) TimerEvent: {}
+[12.037079] (-) TimerEvent: {}
+[12.137329] (-) TimerEvent: {}
+[12.237580] (-) TimerEvent: {}
+[12.337806] (-) TimerEvent: {}
+[12.438053] (-) TimerEvent: {}
+[12.538312] (-) TimerEvent: {}
+[12.638574] (-) TimerEvent: {}
+[12.738822] (-) TimerEvent: {}
+[12.839070] (-) TimerEvent: {}
+[12.939321] (-) TimerEvent: {}
+[13.039638] (-) TimerEvent: {}
+[13.139899] (-) TimerEvent: {}
+[13.240199] (-) TimerEvent: {}
+[13.340670] (-) TimerEvent: {}
+[13.441048] (-) TimerEvent: {}
+[13.541406] (-) TimerEvent: {}
+[13.641869] (-) TimerEvent: {}
+[13.742327] (-) TimerEvent: {}
+[13.842870] (-) TimerEvent: {}
+[13.943590] (-) TimerEvent: {}
+[14.043966] (-) TimerEvent: {}
+[14.144610] (-) TimerEvent: {}
+[14.217764] (ur5_scaled_sender) StdoutLine: {'line': b'[100%] \x1b[32m\x1b[1mLinking CXX executable opt_teleop\x1b[0m\n'}
+[14.244698] (-) TimerEvent: {}
+[14.345080] (-) TimerEvent: {}
+[14.445489] (-) TimerEvent: {}
+[14.545925] (-) TimerEvent: {}
+[14.646425] (-) TimerEvent: {}
+[14.747185] (-) TimerEvent: {}
+[14.847471] (-) TimerEvent: {}
+[14.899103] (ur5_scaled_sender) StdoutLine: {'line': b'[100%] Built target opt_teleop\n'}
+[14.910335] (ur5_scaled_sender) CommandEnded: {'returncode': 0}
+[14.911263] (ur5_scaled_sender) JobProgress: {'identifier': 'ur5_scaled_sender', 'progress': 'install'}
+[14.917709] (ur5_scaled_sender) Command: {'cmd': ['/usr/bin/cmake', '--install', '/home/utec/try_opt/build/ur5_scaled_sender'], 'cwd': '/home/utec/try_opt/build/ur5_scaled_sender', 'env': OrderedDict([('PYTHON_BASIC_REPL', '1'), ('LESSOPEN', '| /usr/bin/lesspipe %s'), ('LANGUAGE', 'en'), ('USER', 'utec'), ('LC_TIME', 'es_PE.UTF-8'), ('XDG_SESSION_TYPE', 'wayland'), ('GIT_ASKPASS', '/usr/share/code/resources/app/extensions/git/dist/askpass.sh'), ('SHLVL', '2'), ('LD_LIBRARY_PATH', '/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib'), ('HOME', '/home/utec'), ('CHROME_DESKTOP', 'code.desktop'), ('OLDPWD', '/home/utec/try_opt'), ('TERM_PROGRAM_VERSION', '1.106.3'), ('DESKTOP_SESSION', 'ubuntu'), ('OH_SDK_BASE', '/opt/OpenHaptics/Developer/3.4-0'), ('ROS_PYTHON_VERSION', '3'), ('GNOME_SHELL_SESSION_MODE', 'ubuntu'), ('GTK_MODULES', 'gail:atk-bridge'), ('VSCODE_GIT_ASKPASS_MAIN', '/usr/share/code/resources/app/extensions/git/dist/askpass-main.js'), ('LC_MONETARY', 'es_PE.UTF-8'), ('VSCODE_GIT_ASKPASS_NODE', '/usr/share/code/code'), ('PYDEVD_DISABLE_FILE_VALIDATION', '1'), ('SYSTEMD_EXEC_PID', '2146'), ('BUNDLED_DEBUGPY_PATH', '/home/utec/.vscode/extensions/ms-python.debugpy-2025.16.0-linux-x64/bundled/libs/debugpy'), ('VSCODE_PYTHON_AUTOACTIVATE_GUARD', '1'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1000/bus'), ('COLORTERM', 'truecolor'), ('IM_CONFIG_PHASE', '1'), ('WAYLAND_DISPLAY', 'wayland-0'), ('ROS_DISTRO', 'humble'), ('LOGNAME', 'utec'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('XDG_SESSION_CLASS', 'user'), ('USERNAME', 'utec'), ('TERM', 'xterm-256color'), ('GNOME_DESKTOP_SESSION_ID', 'this-is-deprecated'), ('ROS_LOCALHOST_ONLY', '0'), ('PATH', '/opt/ros/humble/bin:/home/utec/.config/Code/User/globalStorage/github.copilot-chat/copilotCli:/home/utec/.config/Code/User/globalStorage/github.copilot-chat/debugCommand:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin:/home/utec/.vscode/extensions/ms-python.debugpy-2025.16.0-linux-x64/bundled/scripts/noConfigScripts'), ('SESSION_MANAGER', 'local/utec-ThinkPad-E15-Gen-2:@/tmp/.ICE-unix/1959,unix/utec-ThinkPad-E15-Gen-2:/tmp/.ICE-unix/1959'), ('PAPERSIZE', 'a4'), ('XDG_MENU_PREFIX', 'gnome-'), ('LC_ADDRESS', 'es_PE.UTF-8'), ('GNOME_TERMINAL_SCREEN', '/org/gnome/Terminal/screen/5fa5812b_94d5_4d58_9c69_58b767a54dc4'), ('GNOME_SETUP_DISPLAY', ':1'), ('XDG_RUNTIME_DIR', '/run/user/1000'), ('GDK_BACKEND', 'x11'), ('DISPLAY', ':0'), ('VSCODE_DEBUGPY_ADAPTER_ENDPOINTS', '/home/utec/.vscode/extensions/ms-python.debugpy-2025.16.0-linux-x64/.noConfigDebugAdapterEndpoints/endpoint-bb576b575c1a7e2d.txt'), ('LANG', 'en_US.UTF-8'), ('XDG_CURRENT_DESKTOP', 'Unity'), ('PYTHONSTARTUP', '/home/utec/.config/Code/User/workspaceStorage/de6342ca979a64c727de50d867ecd2d7/ms-python.python/pythonrc.py'), ('LC_TELEPHONE', 'es_PE.UTF-8'), ('XMODIFIERS', '@im=ibus'), ('XDG_SESSION_DESKTOP', 'ubuntu'), ('XAUTHORITY', '/run/user/1000/.mutter-Xwaylandauth.6MDRG3'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('VSCODE_GIT_IPC_HANDLE', '/run/user/1000/vscode-git-b43e6ba8bb.sock'), ('GNOME_TERMINAL_SERVICE', ':1.116'), ('TERM_PROGRAM', 'vscode'), ('SSH_AGENT_LAUNCHER', 'gnome-keyring'), ('SSH_AUTH_SOCK', '/run/user/1000/keyring/ssh'), ('AMENT_PREFIX_PATH', '/opt/ros/humble'), ('ORIGINAL_XDG_CURRENT_DESKTOP', 'ubuntu:GNOME'), ('SHELL', '/bin/bash'), ('LC_NAME', 'es_PE.UTF-8'), ('QT_ACCESSIBILITY', '1'), ('GDMSESSION', 'ubuntu'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('LC_MEASUREMENT', 'es_PE.UTF-8'), ('LC_IDENTIFICATION', 'es_PE.UTF-8'), ('VSCODE_GIT_ASKPASS_EXTRA_ARGS', ''), ('GIT_PAGER', 'cat'), ('QT_IM_MODULE', 'ibus'), ('PWD', '/home/utec/try_opt/build/ur5_scaled_sender'), ('LC_ALL', 'en_US.UTF-8'), ('XDG_CONFIG_DIRS', '/etc/xdg/xdg-ubuntu:/etc/xdg'), ('XDG_DATA_DIRS', '/usr/share/ubuntu:/home/utec/.local/share/flatpak/exports/share:/var/lib/flatpak/exports/share:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop'), ('PYTHONPATH', '/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages'), ('LC_NUMERIC', 'es_PE.UTF-8'), ('LC_PAPER', 'es_PE.UTF-8'), ('COLCON', '1'), ('VTE_VERSION', '6800'), ('CMAKE_PREFIX_PATH', '/opt/ros/humble')]), 'shell': False}
+[14.924005] (ur5_scaled_sender) StdoutLine: {'line': b'-- Install configuration: ""\n'}
+[14.924233] (ur5_scaled_sender) StdoutLine: {'line': b'-- Up-to-date: /home/utec/try_opt/install/ur5_scaled_sender/lib/ur5_scaled_sender/scaled_traj_publisher\n'}
+[14.924337] (ur5_scaled_sender) StdoutLine: {'line': b'-- Installing: /home/utec/try_opt/install/ur5_scaled_sender/lib/ur5_scaled_sender/opt_teleop\n'}
+[14.929359] (ur5_scaled_sender) StdoutLine: {'line': b'-- Set runtime path of "/home/utec/try_opt/install/ur5_scaled_sender/lib/ur5_scaled_sender/opt_teleop" to ""\n'}
+[14.929803] (ur5_scaled_sender) StdoutLine: {'line': b'-- Up-to-date: /home/utec/try_opt/install/ur5_scaled_sender/lib/ur5_scaled_sender/test_jacobian\n'}
+[14.929857] (ur5_scaled_sender) StdoutLine: {'line': b'-- Up-to-date: /home/utec/try_opt/install/ur5_scaled_sender/share/ur5_scaled_sender/launch\n'}
+[14.929905] (ur5_scaled_sender) StdoutLine: {'line': b'-- Up-to-date: /home/utec/try_opt/install/ur5_scaled_sender/share/ur5_scaled_sender/launch/send_trajectory.launch.py\n'}
+[14.929952] (ur5_scaled_sender) StdoutLine: {'line': b'-- Up-to-date: /home/utec/try_opt/install/ur5_scaled_sender/share/ur5_scaled_sender/launch/opt_teleop.launch.py\n'}
+[14.929998] (ur5_scaled_sender) StdoutLine: {'line': b'-- Up-to-date: /home/utec/try_opt/install/ur5_scaled_sender/share/ament_index/resource_index/package_run_dependencies/ur5_scaled_sender\n'}
+[14.930095] (ur5_scaled_sender) StdoutLine: {'line': b'-- Up-to-date: /home/utec/try_opt/install/ur5_scaled_sender/share/ament_index/resource_index/parent_prefix_path/ur5_scaled_sender\n'}
+[14.930145] (ur5_scaled_sender) StdoutLine: {'line': b'-- Up-to-date: /home/utec/try_opt/install/ur5_scaled_sender/share/ur5_scaled_sender/environment/ament_prefix_path.sh\n'}
+[14.930191] (ur5_scaled_sender) StdoutLine: {'line': b'-- Up-to-date: /home/utec/try_opt/install/ur5_scaled_sender/share/ur5_scaled_sender/environment/ament_prefix_path.dsv\n'}
+[14.930234] (ur5_scaled_sender) StdoutLine: {'line': b'-- Up-to-date: /home/utec/try_opt/install/ur5_scaled_sender/share/ur5_scaled_sender/environment/path.sh\n'}
+[14.930274] (ur5_scaled_sender) StdoutLine: {'line': b'-- Up-to-date: /home/utec/try_opt/install/ur5_scaled_sender/share/ur5_scaled_sender/environment/path.dsv\n'}
+[14.930313] (ur5_scaled_sender) StdoutLine: {'line': b'-- Up-to-date: /home/utec/try_opt/install/ur5_scaled_sender/share/ur5_scaled_sender/local_setup.bash\n'}
+[14.930399] (ur5_scaled_sender) StdoutLine: {'line': b'-- Up-to-date: /home/utec/try_opt/install/ur5_scaled_sender/share/ur5_scaled_sender/local_setup.sh\n'}
+[14.930439] (ur5_scaled_sender) StdoutLine: {'line': b'-- Up-to-date: /home/utec/try_opt/install/ur5_scaled_sender/share/ur5_scaled_sender/local_setup.zsh\n'}
+[14.930476] (ur5_scaled_sender) StdoutLine: {'line': b'-- Up-to-date: /home/utec/try_opt/install/ur5_scaled_sender/share/ur5_scaled_sender/local_setup.dsv\n'}
+[14.930514] (ur5_scaled_sender) StdoutLine: {'line': b'-- Installing: /home/utec/try_opt/install/ur5_scaled_sender/share/ur5_scaled_sender/package.dsv\n'}
+[14.930550] (ur5_scaled_sender) StdoutLine: {'line': b'-- Up-to-date: /home/utec/try_opt/install/ur5_scaled_sender/share/ament_index/resource_index/packages/ur5_scaled_sender\n'}
+[14.930594] (ur5_scaled_sender) StdoutLine: {'line': b'-- Up-to-date: /home/utec/try_opt/install/ur5_scaled_sender/share/ur5_scaled_sender/cmake/ur5_scaled_senderConfig.cmake\n'}
+[14.930635] (ur5_scaled_sender) StdoutLine: {'line': b'-- Up-to-date: /home/utec/try_opt/install/ur5_scaled_sender/share/ur5_scaled_sender/cmake/ur5_scaled_senderConfig-version.cmake\n'}
+[14.930677] (ur5_scaled_sender) StdoutLine: {'line': b'-- Up-to-date: /home/utec/try_opt/install/ur5_scaled_sender/share/ur5_scaled_sender/package.xml\n'}
+[14.931443] (ur5_scaled_sender) CommandEnded: {'returncode': 0}
+[14.944278] (ur5_scaled_sender) JobEnded: {'identifier': 'ur5_scaled_sender', 'rc': 0}
+[14.944763] (-) EventReactorShutdown: {}

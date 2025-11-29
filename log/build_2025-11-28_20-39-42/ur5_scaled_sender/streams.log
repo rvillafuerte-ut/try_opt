@@ -1,0 +1,14 @@
+[0.009s] Invoking command in '/home/utec/try_opt/build/ur5_scaled_sender': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --build /home/utec/try_opt/build/ur5_scaled_sender -- -j8 -l8
+[0.052s] [35m[1mConsolidate compiler generated dependencies of target opt_teleop[0m
+[0.055s] [ 25%] Built target test_jacobian
+[0.055s] [ 50%] Built target scaled_traj_publisher
+[0.068s] [ 75%] Built target opt_teleop_pinocchio
+[0.080s] [ 87%] [32mBuilding CXX object CMakeFiles/opt_teleop.dir/src/opt_teleop.cpp.o[0m
+[5.986s] [01m[K/home/utec/try_opt/src/ur5_scaled_sender/src/opt_teleop.cpp:[m[K In member function ‘[01m[Kvoid OptTeleop::control_loop()[m[K’:
+[5.986s] [01m[K/home/utec/try_opt/src/ur5_scaled_sender/src/opt_teleop.cpp:198:13:[m[K [01;31m[Kerror: [m[K‘[01m[Kfinal_err[m[K’ was not declared in this scope
+[5.986s]   198 |             [01;31m[Kfinal_err[m[K = err_norm;
+[5.986s]       |             [01;31m[K^~~~~~~~~[m[K
+[26.364s] gmake[2]: *** [CMakeFiles/opt_teleop.dir/build.make:76: CMakeFiles/opt_teleop.dir/src/opt_teleop.cpp.o] Error 1
+[26.364s] gmake[1]: *** [CMakeFiles/Makefile2:169: CMakeFiles/opt_teleop.dir/all] Error 2
+[26.364s] gmake: *** [Makefile:146: all] Error 2
+[26.367s] Invoked command in '/home/utec/try_opt/build/ur5_scaled_sender' returned '2': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --build /home/utec/try_opt/build/ur5_scaled_sender -- -j8 -l8

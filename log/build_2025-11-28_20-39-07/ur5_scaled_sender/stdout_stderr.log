@@ -1,0 +1,11 @@
+[ 25%] Built target test_jacobian
+[ 50%] Built target scaled_traj_publisher
+[ 87%] Built target opt_teleop_pinocchio
+[ 87%] [32mBuilding CXX object CMakeFiles/opt_teleop.dir/src/opt_teleop.cpp.o[0m
+[01m[K/home/utec/try_opt/src/ur5_scaled_sender/src/opt_teleop.cpp:[m[K In member function ‘[01m[Kvoid OptTeleop::control_loop()[m[K’:
+[01m[K/home/utec/try_opt/src/ur5_scaled_sender/src/opt_teleop.cpp:198:13:[m[K [01;31m[Kerror: [m[K‘[01m[Kfinal_err[m[K’ was not declared in this scope
+  198 |             [01;31m[Kfinal_err[m[K = err_norm;
+      |             [01;31m[K^~~~~~~~~[m[K
+gmake[2]: *** [CMakeFiles/opt_teleop.dir/build.make:76: CMakeFiles/opt_teleop.dir/src/opt_teleop.cpp.o] Error 1
+gmake[1]: *** [CMakeFiles/Makefile2:169: CMakeFiles/opt_teleop.dir/all] Error 2
+gmake: *** [Makefile:146: all] Error 2

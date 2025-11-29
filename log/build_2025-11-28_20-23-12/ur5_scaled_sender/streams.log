@@ -1,0 +1,9 @@
+[0.008s] Invoking command in '/home/utec/try_opt/build/ur5_scaled_sender': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --build /home/utec/try_opt/build/ur5_scaled_sender -- -j8 -l8
+[0.052s] [ 25%] Built target test_jacobian
+[0.053s] [ 50%] Built target scaled_traj_publisher
+[0.066s] [ 75%] Built target opt_teleop_pinocchio
+[0.066s] [ 87%] [32mBuilding CXX object CMakeFiles/opt_teleop.dir/src/opt_teleop.cpp.o[0m
+[25.058s] gmake[2]: *** [CMakeFiles/opt_teleop.dir/build.make:76: CMakeFiles/opt_teleop.dir/src/opt_teleop.cpp.o] Interrupt
+[25.058s] gmake[1]: *** [CMakeFiles/Makefile2:169: CMakeFiles/opt_teleop.dir/all] Interrupt
+[25.059s] gmake: *** [Makefile:146: all] Interrupt
+[25.142s] Invoked command in '/home/utec/try_opt/build/ur5_scaled_sender' returned '-2': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --build /home/utec/try_opt/build/ur5_scaled_sender -- -j8 -l8

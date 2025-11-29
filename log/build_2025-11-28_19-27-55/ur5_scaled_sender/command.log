@@ -1,0 +1,2 @@
+Invoking command in '/home/utec/try_opt/build/ur5_scaled_sender': /usr/bin/cmake /home/utec/try_opt/src/ur5_scaled_sender -DCMAKE_INSTALL_PREFIX=/home/utec/try_opt/install/ur5_scaled_sender
+Invoked command in '/home/utec/try_opt/build/ur5_scaled_sender' returned '1': /usr/bin/cmake /home/utec/try_opt/src/ur5_scaled_sender -DCMAKE_INSTALL_PREFIX=/home/utec/try_opt/install/ur5_scaled_sender

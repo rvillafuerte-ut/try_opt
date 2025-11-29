@@ -1,0 +1,50 @@
+[0.009s] Invoking command in '/home/utec/try_opt/build/ur5_scaled_sender': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --build /home/utec/try_opt/build/ur5_scaled_sender -- -j8 -l8
+[0.028s] -- Found ament_cmake: 1.3.0 (/usr/share/ament_cmake/cmake)
+[0.149s] -- Found rclcpp: 16.0.16 (/opt/ros/humble/share/rclcpp/cmake)
+[0.172s] -- Found rosidl_generator_c: 3.1.7 (/opt/ros/humble/share/rosidl_generator_c/cmake)
+[0.174s] -- Found rosidl_adapter: 3.1.7 (/opt/ros/humble/share/rosidl_adapter/cmake)
+[0.178s] -- Found rosidl_generator_cpp: 3.1.7 (/opt/ros/humble/share/rosidl_generator_cpp/cmake)
+[0.187s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[0.199s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[0.244s] -- Found rmw_implementation_cmake: 6.1.2 (/opt/ros/humble/share/rmw_implementation_cmake/cmake)
+[0.245s] -- Found rmw_fastrtps_cpp: 6.2.9 (/opt/ros/humble/share/rmw_fastrtps_cpp/cmake)
+[0.339s] -- Using RMW implementation 'rmw_fastrtps_cpp' as default
+[0.459s] -- Found trajectory_msgs: 4.9.0 (/opt/ros/humble/share/trajectory_msgs/cmake)
+[0.558s] -- Found sensor_msgs: 4.9.0 (/opt/ros/humble/share/sensor_msgs/cmake)
+[0.625s] -- Found eigen3_cmake_module: 0.1.1 (/opt/ros/humble/share/eigen3_cmake_module/cmake)
+[0.681s] -- Configuring done
+[0.693s] -- Generating done
+[0.697s] -- Build files have been written to: /home/utec/try_opt/build/ur5_scaled_sender
+[0.721s] [35m[1mConsolidate compiler generated dependencies of target test_jacobian[0m
+[0.721s] [35m[1mConsolidate compiler generated dependencies of target scaled_traj_publisher[0m
+[0.722s] [35m[1mConsolidate compiler generated dependencies of target opt_teleop[0m
+[0.732s] [ 16%] [32mBuilding CXX object CMakeFiles/test_jacobian.dir/src/test_jacobian.cpp.o[0m
+[0.736s] [ 83%] Built target opt_teleop
+[0.736s] [ 83%] Built target scaled_traj_publisher
+[3.291s] [100%] [32m[1mLinking CXX executable test_jacobian[0m
+[3.426s] [100%] Built target test_jacobian
+[3.437s] Invoked command in '/home/utec/try_opt/build/ur5_scaled_sender' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --build /home/utec/try_opt/build/ur5_scaled_sender -- -j8 -l8
+[3.445s] Invoking command in '/home/utec/try_opt/build/ur5_scaled_sender': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --install /home/utec/try_opt/build/ur5_scaled_sender
+[3.451s] -- Install configuration: ""
+[3.451s] -- Up-to-date: /home/utec/try_opt/install/ur5_scaled_sender/lib/ur5_scaled_sender/scaled_traj_publisher
+[3.451s] -- Up-to-date: /home/utec/try_opt/install/ur5_scaled_sender/lib/ur5_scaled_sender/opt_teleop
+[3.452s] -- Installing: /home/utec/try_opt/install/ur5_scaled_sender/lib/ur5_scaled_sender/test_jacobian
+[3.452s] -- Up-to-date: /home/utec/try_opt/install/ur5_scaled_sender/share/ur5_scaled_sender/launch
+[3.452s] -- Up-to-date: /home/utec/try_opt/install/ur5_scaled_sender/share/ur5_scaled_sender/launch/send_trajectory.launch.py
+[3.453s] -- Up-to-date: /home/utec/try_opt/install/ur5_scaled_sender/share/ur5_scaled_sender/launch/opt_teleop.launch.py
+[3.453s] -- Up-to-date: /home/utec/try_opt/install/ur5_scaled_sender/share/ament_index/resource_index/package_run_dependencies/ur5_scaled_sender
+[3.453s] -- Installing: /home/utec/try_opt/install/ur5_scaled_sender/share/ament_index/resource_index/parent_prefix_path/ur5_scaled_sender
+[3.453s] -- Up-to-date: /home/utec/try_opt/install/ur5_scaled_sender/share/ur5_scaled_sender/environment/ament_prefix_path.sh
+[3.453s] -- Installing: /home/utec/try_opt/install/ur5_scaled_sender/share/ur5_scaled_sender/environment/ament_prefix_path.dsv
+[3.453s] -- Up-to-date: /home/utec/try_opt/install/ur5_scaled_sender/share/ur5_scaled_sender/environment/path.sh
+[3.453s] -- Installing: /home/utec/try_opt/install/ur5_scaled_sender/share/ur5_scaled_sender/environment/path.dsv
+[3.453s] -- Up-to-date: /home/utec/try_opt/install/ur5_scaled_sender/share/ur5_scaled_sender/local_setup.bash
+[3.453s] -- Up-to-date: /home/utec/try_opt/install/ur5_scaled_sender/share/ur5_scaled_sender/local_setup.sh
+[3.453s] -- Up-to-date: /home/utec/try_opt/install/ur5_scaled_sender/share/ur5_scaled_sender/local_setup.zsh
+[3.453s] -- Installing: /home/utec/try_opt/install/ur5_scaled_sender/share/ur5_scaled_sender/local_setup.dsv
+[3.453s] -- Installing: /home/utec/try_opt/install/ur5_scaled_sender/share/ur5_scaled_sender/package.dsv
+[3.453s] -- Up-to-date: /home/utec/try_opt/install/ur5_scaled_sender/share/ament_index/resource_index/packages/ur5_scaled_sender
+[3.453s] -- Up-to-date: /home/utec/try_opt/install/ur5_scaled_sender/share/ur5_scaled_sender/cmake/ur5_scaled_senderConfig.cmake
+[3.453s] -- Up-to-date: /home/utec/try_opt/install/ur5_scaled_sender/share/ur5_scaled_sender/cmake/ur5_scaled_senderConfig-version.cmake
+[3.453s] -- Up-to-date: /home/utec/try_opt/install/ur5_scaled_sender/share/ur5_scaled_sender/package.xml
+[3.455s] Invoked command in '/home/utec/try_opt/build/ur5_scaled_sender' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --install /home/utec/try_opt/build/ur5_scaled_sender

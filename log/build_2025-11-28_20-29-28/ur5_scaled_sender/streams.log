@@ -1,0 +1,13 @@
+[0.011s] Invoking command in '/home/utec/try_opt/build/ur5_scaled_sender': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --build /home/utec/try_opt/build/ur5_scaled_sender -- -j8 -l8
+[0.054s] [35m[1mConsolidate compiler generated dependencies of target opt_teleop[0m
+[0.062s] [ 25%] Built target scaled_traj_publisher
+[0.062s] [ 50%] Built target test_jacobian
+[0.077s] [ 75%] Built target opt_teleop_pinocchio
+[0.086s] [ 87%] [32m[1mLinking CXX executable opt_teleop[0m
+[0.159s] /usr/bin/ld: /usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/Scrt1.o: in function `_start':
+[0.159s] (.text+0x1b): undefined reference to `main'
+[0.160s] collect2: error: ld returned 1 exit status
+[0.162s] gmake[2]: *** [CMakeFiles/opt_teleop.dir/build.make:186: opt_teleop] Error 1
+[0.162s] gmake[1]: *** [CMakeFiles/Makefile2:169: CMakeFiles/opt_teleop.dir/all] Error 2
+[0.162s] gmake: *** [Makefile:146: all] Error 2
+[0.164s] Invoked command in '/home/utec/try_opt/build/ur5_scaled_sender' returned '2': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --build /home/utec/try_opt/build/ur5_scaled_sender -- -j8 -l8

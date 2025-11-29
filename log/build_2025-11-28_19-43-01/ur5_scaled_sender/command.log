@@ -1,0 +1,4 @@
+Invoking command in '/home/utec/try_opt/build/ur5_scaled_sender': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --build /home/utec/try_opt/build/ur5_scaled_sender -- -j8 -l8
+Invoked command in '/home/utec/try_opt/build/ur5_scaled_sender' returned '0': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --build /home/utec/try_opt/build/ur5_scaled_sender -- -j8 -l8
+Invoking command in '/home/utec/try_opt/build/ur5_scaled_sender': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --install /home/utec/try_opt/build/ur5_scaled_sender
+Invoked command in '/home/utec/try_opt/build/ur5_scaled_sender' returned '0': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --install /home/utec/try_opt/build/ur5_scaled_sender

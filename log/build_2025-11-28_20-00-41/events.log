@@ -1,0 +1,541 @@
+[0.000000] (-) TimerEvent: {}
+[0.000444] (ur5_scaled_sender) JobQueued: {'identifier': 'ur5_scaled_sender', 'dependencies': OrderedDict()}
+[0.000700] (ur5_scaled_sender) JobStarted: {'identifier': 'ur5_scaled_sender'}
+[0.008045] (ur5_scaled_sender) JobProgress: {'identifier': 'ur5_scaled_sender', 'progress': 'cmake'}
+[0.008564] (ur5_scaled_sender) JobProgress: {'identifier': 'ur5_scaled_sender', 'progress': 'build'}
+[0.009056] (ur5_scaled_sender) Command: {'cmd': ['/usr/bin/cmake', '--build', '/home/utec/try_opt/build/ur5_scaled_sender', '--', '-j8', '-l8'], 'cwd': '/home/utec/try_opt/build/ur5_scaled_sender', 'env': OrderedDict([('PYTHON_BASIC_REPL', '1'), ('LESSOPEN', '| /usr/bin/lesspipe %s'), ('LANGUAGE', 'en'), ('USER', 'utec'), ('LC_TIME', 'es_PE.UTF-8'), ('XDG_SESSION_TYPE', 'wayland'), ('GIT_ASKPASS', '/usr/share/code/resources/app/extensions/git/dist/askpass.sh'), ('SHLVL', '2'), ('LD_LIBRARY_PATH', '/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib'), ('HOME', '/home/utec'), ('CHROME_DESKTOP', 'code.desktop'), ('OLDPWD', '/home/utec/try_opt/src/ur5_scaled_sender/src'), ('TERM_PROGRAM_VERSION', '1.106.3'), ('DESKTOP_SESSION', 'ubuntu'), ('OH_SDK_BASE', '/opt/OpenHaptics/Developer/3.4-0'), ('ROS_PYTHON_VERSION', '3'), ('GNOME_SHELL_SESSION_MODE', 'ubuntu'), ('GTK_MODULES', 'gail:atk-bridge'), ('VSCODE_GIT_ASKPASS_MAIN', '/usr/share/code/resources/app/extensions/git/dist/askpass-main.js'), ('LC_MONETARY', 'es_PE.UTF-8'), ('VSCODE_GIT_ASKPASS_NODE', '/usr/share/code/code'), ('PYDEVD_DISABLE_FILE_VALIDATION', '1'), ('SYSTEMD_EXEC_PID', '2146'), ('BUNDLED_DEBUGPY_PATH', '/home/utec/.vscode/extensions/ms-python.debugpy-2025.16.0-linux-x64/bundled/libs/debugpy'), ('VSCODE_PYTHON_AUTOACTIVATE_GUARD', '1'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1000/bus'), ('COLORTERM', 'truecolor'), ('IM_CONFIG_PHASE', '1'), ('WAYLAND_DISPLAY', 'wayland-0'), ('ROS_DISTRO', 'humble'), ('LOGNAME', 'utec'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('XDG_SESSION_CLASS', 'user'), ('USERNAME', 'utec'), ('TERM', 'xterm-256color'), ('GNOME_DESKTOP_SESSION_ID', 'this-is-deprecated'), ('ROS_LOCALHOST_ONLY', '0'), ('PATH', '/opt/ros/humble/bin:/home/utec/.config/Code/User/globalStorage/github.copilot-chat/copilotCli:/home/utec/.config/Code/User/globalStorage/github.copilot-chat/debugCommand:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin:/home/utec/.vscode/extensions/ms-python.debugpy-2025.16.0-linux-x64/bundled/scripts/noConfigScripts'), ('SESSION_MANAGER', 'local/utec-ThinkPad-E15-Gen-2:@/tmp/.ICE-unix/1959,unix/utec-ThinkPad-E15-Gen-2:/tmp/.ICE-unix/1959'), ('PAPERSIZE', 'a4'), ('XDG_MENU_PREFIX', 'gnome-'), ('LC_ADDRESS', 'es_PE.UTF-8'), ('GNOME_TERMINAL_SCREEN', '/org/gnome/Terminal/screen/5fa5812b_94d5_4d58_9c69_58b767a54dc4'), ('GNOME_SETUP_DISPLAY', ':1'), ('XDG_RUNTIME_DIR', '/run/user/1000'), ('GDK_BACKEND', 'x11'), ('DISPLAY', ':0'), ('VSCODE_DEBUGPY_ADAPTER_ENDPOINTS', '/home/utec/.vscode/extensions/ms-python.debugpy-2025.16.0-linux-x64/.noConfigDebugAdapterEndpoints/endpoint-bb576b575c1a7e2d.txt'), ('LANG', 'en_US.UTF-8'), ('XDG_CURRENT_DESKTOP', 'Unity'), ('PYTHONSTARTUP', '/home/utec/.config/Code/User/workspaceStorage/de6342ca979a64c727de50d867ecd2d7/ms-python.python/pythonrc.py'), ('LC_TELEPHONE', 'es_PE.UTF-8'), ('XMODIFIERS', '@im=ibus'), ('XDG_SESSION_DESKTOP', 'ubuntu'), ('XAUTHORITY', '/run/user/1000/.mutter-Xwaylandauth.6MDRG3'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('VSCODE_GIT_IPC_HANDLE', '/run/user/1000/vscode-git-b43e6ba8bb.sock'), ('GNOME_TERMINAL_SERVICE', ':1.116'), ('TERM_PROGRAM', 'vscode'), ('SSH_AGENT_LAUNCHER', 'gnome-keyring'), ('SSH_AUTH_SOCK', '/run/user/1000/keyring/ssh'), ('AMENT_PREFIX_PATH', '/opt/ros/humble'), ('ORIGINAL_XDG_CURRENT_DESKTOP', 'ubuntu:GNOME'), ('SHELL', '/bin/bash'), ('LC_NAME', 'es_PE.UTF-8'), ('QT_ACCESSIBILITY', '1'), ('GDMSESSION', 'ubuntu'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('LC_MEASUREMENT', 'es_PE.UTF-8'), ('LC_IDENTIFICATION', 'es_PE.UTF-8'), ('VSCODE_GIT_ASKPASS_EXTRA_ARGS', ''), ('GIT_PAGER', 'cat'), ('QT_IM_MODULE', 'ibus'), ('PWD', '/home/utec/try_opt/build/ur5_scaled_sender'), ('LC_ALL', 'en_US.UTF-8'), ('XDG_CONFIG_DIRS', '/etc/xdg/xdg-ubuntu:/etc/xdg'), ('XDG_DATA_DIRS', '/usr/share/ubuntu:/home/utec/.local/share/flatpak/exports/share:/var/lib/flatpak/exports/share:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop'), ('PYTHONPATH', '/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages'), ('LC_NUMERIC', 'es_PE.UTF-8'), ('LC_PAPER', 'es_PE.UTF-8'), ('COLCON', '1'), ('VTE_VERSION', '6800'), ('CMAKE_PREFIX_PATH', '/opt/ros/humble')]), 'shell': False}
+[0.030873] (ur5_scaled_sender) StdoutLine: {'line': b'-- Found ament_cmake: 1.3.0 (/usr/share/ament_cmake/cmake)\n'}
+[0.099830] (-) TimerEvent: {}
+[0.151115] (ur5_scaled_sender) StdoutLine: {'line': b'-- Found rclcpp: 16.0.16 (/opt/ros/humble/share/rclcpp/cmake)\n'}
+[0.175597] (ur5_scaled_sender) StdoutLine: {'line': b'-- Found rosidl_generator_c: 3.1.7 (/opt/ros/humble/share/rosidl_generator_c/cmake)\n'}
+[0.177287] (ur5_scaled_sender) StdoutLine: {'line': b'-- Found rosidl_adapter: 3.1.7 (/opt/ros/humble/share/rosidl_adapter/cmake)\n'}
+[0.181526] (ur5_scaled_sender) StdoutLine: {'line': b'-- Found rosidl_generator_cpp: 3.1.7 (/opt/ros/humble/share/rosidl_generator_cpp/cmake)\n'}
+[0.190511] (ur5_scaled_sender) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c\n'}
+[0.199944] (-) TimerEvent: {}
+[0.202564] (ur5_scaled_sender) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp\n'}
+[0.246895] (ur5_scaled_sender) StdoutLine: {'line': b'-- Found rmw_implementation_cmake: 6.1.2 (/opt/ros/humble/share/rmw_implementation_cmake/cmake)\n'}
+[0.247857] (ur5_scaled_sender) StdoutLine: {'line': b'-- Found rmw_fastrtps_cpp: 6.2.9 (/opt/ros/humble/share/rmw_fastrtps_cpp/cmake)\n'}
+[0.300057] (-) TimerEvent: {}
+[0.348342] (ur5_scaled_sender) StdoutLine: {'line': b"-- Using RMW implementation 'rmw_fastrtps_cpp' as default\n"}
+[0.400169] (-) TimerEvent: {}
+[0.467480] (ur5_scaled_sender) StdoutLine: {'line': b'-- Found trajectory_msgs: 4.9.0 (/opt/ros/humble/share/trajectory_msgs/cmake)\n'}
+[0.500289] (-) TimerEvent: {}
+[0.561984] (ur5_scaled_sender) StdoutLine: {'line': b'-- Found sensor_msgs: 4.9.0 (/opt/ros/humble/share/sensor_msgs/cmake)\n'}
+[0.600379] (-) TimerEvent: {}
+[0.626712] (ur5_scaled_sender) StdoutLine: {'line': b'-- Found eigen3_cmake_module: 0.1.1 (/opt/ros/humble/share/eigen3_cmake_module/cmake)\n'}
+[0.636477] (ur5_scaled_sender) StdoutLine: {'line': b'-- pinocchio_default FOUND. pinocchio_default at /usr/local/lib/libpinocchio_default.so\n'}
+[0.636758] (ur5_scaled_sender) StdoutLine: {'line': b'-- pinocchio_parsers FOUND. pinocchio_parsers at /usr/local/lib/libpinocchio_parsers.so\n'}
+[0.637869] (ur5_scaled_sender) StdoutLine: {'line': b'-- boost_filesystem FOUND. boost_filesystem at /usr/lib/x86_64-linux-gnu/libboost_filesystem.so\n'}
+[0.700566] (-) TimerEvent: {}
+[0.801413] (-) TimerEvent: {}
+[0.902193] (-) TimerEvent: {}
+[0.916399] (ur5_scaled_sender) StdoutLine: {'line': b'-- Default C++ standard: 201703\n'}
+[0.916596] (ur5_scaled_sender) StdoutLine: {'line': b'-- C++ standard sufficient: Minimal required 11, currently defined: 17\n'}
+[0.971388] (ur5_scaled_sender) StdoutLine: {'line': b'-- Configuring done\n'}
+[0.983981] (ur5_scaled_sender) StdoutLine: {'line': b'-- Generating done\n'}
+[0.990484] (ur5_scaled_sender) StdoutLine: {'line': b'-- Build files have been written to: /home/utec/try_opt/build/ur5_scaled_sender\n'}
+[1.002534] (-) TimerEvent: {}
+[1.012050] (ur5_scaled_sender) StdoutLine: {'line': b'\x1b[35m\x1b[1mConsolidate compiler generated dependencies of target test_jacobian\x1b[0m\n'}
+[1.012360] (ur5_scaled_sender) StdoutLine: {'line': b'\x1b[35m\x1b[1mConsolidate compiler generated dependencies of target scaled_traj_publisher\x1b[0m\n'}
+[1.015861] (ur5_scaled_sender) StdoutLine: {'line': b'\x1b[35m\x1b[1mConsolidate compiler generated dependencies of target opt_teleop_pinocchio\x1b[0m\n'}
+[1.016221] (ur5_scaled_sender) StdoutLine: {'line': b'\x1b[35m\x1b[1mConsolidate compiler generated dependencies of target opt_teleop\x1b[0m\n'}
+[1.025656] (ur5_scaled_sender) StdoutLine: {'line': b'[ 25%] Built target test_jacobian\n'}
+[1.028698] (ur5_scaled_sender) StdoutLine: {'line': b'[ 50%] Built target scaled_traj_publisher\n'}
+[1.047385] (ur5_scaled_sender) StdoutLine: {'line': b'[ 75%] Built target opt_teleop_pinocchio\n'}
+[1.048082] (ur5_scaled_sender) StdoutLine: {'line': b'[ 87%] \x1b[32mBuilding CXX object CMakeFiles/opt_teleop.dir/src/opt_teleop.cpp.o\x1b[0m\n'}
+[1.102587] (-) TimerEvent: {}
+[1.202907] (-) TimerEvent: {}
+[1.303209] (-) TimerEvent: {}
+[1.403492] (-) TimerEvent: {}
+[1.503935] (-) TimerEvent: {}
+[1.604328] (-) TimerEvent: {}
+[1.704723] (-) TimerEvent: {}
+[1.805480] (-) TimerEvent: {}
+[1.906135] (-) TimerEvent: {}
+[2.006445] (-) TimerEvent: {}
+[2.106688] (-) TimerEvent: {}
+[2.206990] (-) TimerEvent: {}
+[2.307267] (-) TimerEvent: {}
+[2.407643] (-) TimerEvent: {}
+[2.507938] (-) TimerEvent: {}
+[2.608343] (-) TimerEvent: {}
+[2.708901] (-) TimerEvent: {}
+[2.809196] (-) TimerEvent: {}
+[2.909522] (-) TimerEvent: {}
+[3.009810] (-) TimerEvent: {}
+[3.110087] (-) TimerEvent: {}
+[3.210343] (-) TimerEvent: {}
+[3.310601] (-) TimerEvent: {}
+[3.410899] (-) TimerEvent: {}
+[3.511186] (-) TimerEvent: {}
+[3.611483] (-) TimerEvent: {}
+[3.711739] (-) TimerEvent: {}
+[3.812376] (-) TimerEvent: {}
+[3.912706] (-) TimerEvent: {}
+[4.013004] (-) TimerEvent: {}
+[4.113286] (-) TimerEvent: {}
+[4.213564] (-) TimerEvent: {}
+[4.313852] (-) TimerEvent: {}
+[4.414143] (-) TimerEvent: {}
+[4.514419] (-) TimerEvent: {}
+[4.614708] (-) TimerEvent: {}
+[4.715009] (-) TimerEvent: {}
+[4.815280] (-) TimerEvent: {}
+[4.915560] (-) TimerEvent: {}
+[5.015849] (-) TimerEvent: {}
+[5.116133] (-) TimerEvent: {}
+[5.216405] (-) TimerEvent: {}
+[5.316783] (-) TimerEvent: {}
+[5.417265] (-) TimerEvent: {}
+[5.517549] (-) TimerEvent: {}
+[5.617832] (-) TimerEvent: {}
+[5.718138] (-) TimerEvent: {}
+[5.818446] (-) TimerEvent: {}
+[5.918747] (-) TimerEvent: {}
+[6.019429] (-) TimerEvent: {}
+[6.120085] (-) TimerEvent: {}
+[6.220564] (-) TimerEvent: {}
+[6.321360] (-) TimerEvent: {}
+[6.421872] (-) TimerEvent: {}
+[6.522240] (-) TimerEvent: {}
+[6.622539] (-) TimerEvent: {}
+[6.722826] (-) TimerEvent: {}
+[6.823103] (-) TimerEvent: {}
+[6.923361] (-) TimerEvent: {}
+[7.023608] (-) TimerEvent: {}
+[7.124021] (-) TimerEvent: {}
+[7.224550] (-) TimerEvent: {}
+[7.324823] (-) TimerEvent: {}
+[7.425084] (-) TimerEvent: {}
+[7.525313] (-) TimerEvent: {}
+[7.625604] (-) TimerEvent: {}
+[7.725851] (-) TimerEvent: {}
+[7.826131] (-) TimerEvent: {}
+[7.926398] (-) TimerEvent: {}
+[8.026658] (-) TimerEvent: {}
+[8.126941] (-) TimerEvent: {}
+[8.227239] (-) TimerEvent: {}
+[8.327559] (-) TimerEvent: {}
+[8.427836] (-) TimerEvent: {}
+[8.528117] (-) TimerEvent: {}
+[8.628379] (-) TimerEvent: {}
+[8.728664] (-) TimerEvent: {}
+[8.828931] (-) TimerEvent: {}
+[8.929203] (-) TimerEvent: {}
+[9.029462] (-) TimerEvent: {}
+[9.129790] (-) TimerEvent: {}
+[9.230077] (-) TimerEvent: {}
+[9.330352] (-) TimerEvent: {}
+[9.430600] (-) TimerEvent: {}
+[9.530870] (-) TimerEvent: {}
+[9.631122] (-) TimerEvent: {}
+[9.731376] (-) TimerEvent: {}
+[9.831649] (-) TimerEvent: {}
+[9.932035] (-) TimerEvent: {}
+[10.032571] (-) TimerEvent: {}
+[10.133037] (-) TimerEvent: {}
+[10.233563] (-) TimerEvent: {}
+[10.333852] (-) TimerEvent: {}
+[10.434104] (-) TimerEvent: {}
+[10.534423] (-) TimerEvent: {}
+[10.634692] (-) TimerEvent: {}
+[10.734966] (-) TimerEvent: {}
+[10.835399] (-) TimerEvent: {}
+[10.936092] (-) TimerEvent: {}
+[11.036489] (-) TimerEvent: {}
+[11.137326] (-) TimerEvent: {}
+[11.237657] (-) TimerEvent: {}
+[11.337988] (-) TimerEvent: {}
+[11.438239] (-) TimerEvent: {}
+[11.538473] (-) TimerEvent: {}
+[11.638728] (-) TimerEvent: {}
+[11.738993] (-) TimerEvent: {}
+[11.839252] (-) TimerEvent: {}
+[11.939613] (-) TimerEvent: {}
+[12.040076] (-) TimerEvent: {}
+[12.140350] (-) TimerEvent: {}
+[12.240625] (-) TimerEvent: {}
+[12.340903] (-) TimerEvent: {}
+[12.441196] (-) TimerEvent: {}
+[12.541448] (-) TimerEvent: {}
+[12.641718] (-) TimerEvent: {}
+[12.741987] (-) TimerEvent: {}
+[12.842262] (-) TimerEvent: {}
+[12.942510] (-) TimerEvent: {}
+[13.042756] (-) TimerEvent: {}
+[13.143045] (-) TimerEvent: {}
+[13.243292] (-) TimerEvent: {}
+[13.343543] (-) TimerEvent: {}
+[13.443884] (-) TimerEvent: {}
+[13.544327] (-) TimerEvent: {}
+[13.644570] (-) TimerEvent: {}
+[13.744846] (-) TimerEvent: {}
+[13.845102] (-) TimerEvent: {}
+[13.945375] (-) TimerEvent: {}
+[14.045660] (-) TimerEvent: {}
+[14.145950] (-) TimerEvent: {}
+[14.246229] (-) TimerEvent: {}
+[14.346488] (-) TimerEvent: {}
+[14.446748] (-) TimerEvent: {}
+[14.547123] (-) TimerEvent: {}
+[14.647415] (-) TimerEvent: {}
+[14.747789] (-) TimerEvent: {}
+[14.848645] (-) TimerEvent: {}
+[14.949039] (-) TimerEvent: {}
+[15.049563] (-) TimerEvent: {}
+[15.150117] (-) TimerEvent: {}
+[15.250695] (-) TimerEvent: {}
+[15.351135] (-) TimerEvent: {}
+[15.451830] (-) TimerEvent: {}
+[15.552132] (-) TimerEvent: {}
+[15.652500] (-) TimerEvent: {}
+[15.752966] (-) TimerEvent: {}
+[15.853227] (-) TimerEvent: {}
+[15.953484] (-) TimerEvent: {}
+[16.053755] (-) TimerEvent: {}
+[16.154035] (-) TimerEvent: {}
+[16.254351] (-) TimerEvent: {}
+[16.354651] (-) TimerEvent: {}
+[16.454944] (-) TimerEvent: {}
+[16.555250] (-) TimerEvent: {}
+[16.655542] (-) TimerEvent: {}
+[16.755844] (-) TimerEvent: {}
+[16.856151] (-) TimerEvent: {}
+[16.956443] (-) TimerEvent: {}
+[17.056735] (-) TimerEvent: {}
+[17.157041] (-) TimerEvent: {}
+[17.257539] (-) TimerEvent: {}
+[17.357814] (-) TimerEvent: {}
+[17.458083] (-) TimerEvent: {}
+[17.558352] (-) TimerEvent: {}
+[17.658692] (-) TimerEvent: {}
+[17.759083] (-) TimerEvent: {}
+[17.859320] (-) TimerEvent: {}
+[17.959628] (-) TimerEvent: {}
+[18.059919] (-) TimerEvent: {}
+[18.160203] (-) TimerEvent: {}
+[18.260477] (-) TimerEvent: {}
+[18.360739] (-) TimerEvent: {}
+[18.461012] (-) TimerEvent: {}
+[18.564345] (-) TimerEvent: {}
+[18.665179] (-) TimerEvent: {}
+[18.765452] (-) TimerEvent: {}
+[18.865731] (-) TimerEvent: {}
+[18.966332] (-) TimerEvent: {}
+[19.066844] (-) TimerEvent: {}
+[19.167479] (-) TimerEvent: {}
+[19.267737] (-) TimerEvent: {}
+[19.368218] (-) TimerEvent: {}
+[19.468617] (-) TimerEvent: {}
+[19.568908] (-) TimerEvent: {}
+[19.669180] (-) TimerEvent: {}
+[19.769459] (-) TimerEvent: {}
+[19.869765] (-) TimerEvent: {}
+[19.970069] (-) TimerEvent: {}
+[20.070374] (-) TimerEvent: {}
+[20.170649] (-) TimerEvent: {}
+[20.270935] (-) TimerEvent: {}
+[20.371200] (-) TimerEvent: {}
+[20.471491] (-) TimerEvent: {}
+[20.571769] (-) TimerEvent: {}
+[20.672045] (-) TimerEvent: {}
+[20.772350] (-) TimerEvent: {}
+[20.872796] (-) TimerEvent: {}
+[20.973095] (-) TimerEvent: {}
+[21.073370] (-) TimerEvent: {}
+[21.173669] (-) TimerEvent: {}
+[21.274044] (-) TimerEvent: {}
+[21.374339] (-) TimerEvent: {}
+[21.474637] (-) TimerEvent: {}
+[21.574926] (-) TimerEvent: {}
+[21.675209] (-) TimerEvent: {}
+[21.775517] (-) TimerEvent: {}
+[21.875816] (-) TimerEvent: {}
+[21.976112] (-) TimerEvent: {}
+[22.076388] (-) TimerEvent: {}
+[22.176697] (-) TimerEvent: {}
+[22.277021] (-) TimerEvent: {}
+[22.377514] (-) TimerEvent: {}
+[22.477804] (-) TimerEvent: {}
+[22.578090] (-) TimerEvent: {}
+[22.678369] (-) TimerEvent: {}
+[22.778696] (-) TimerEvent: {}
+[22.879430] (-) TimerEvent: {}
+[22.980035] (-) TimerEvent: {}
+[23.080334] (-) TimerEvent: {}
+[23.180768] (-) TimerEvent: {}
+[23.281211] (-) TimerEvent: {}
+[23.381659] (-) TimerEvent: {}
+[23.482045] (-) TimerEvent: {}
+[23.582753] (-) TimerEvent: {}
+[23.683152] (-) TimerEvent: {}
+[23.783701] (-) TimerEvent: {}
+[23.884043] (-) TimerEvent: {}
+[23.984345] (-) TimerEvent: {}
+[24.084633] (-) TimerEvent: {}
+[24.185000] (-) TimerEvent: {}
+[24.285253] (-) TimerEvent: {}
+[24.385548] (-) TimerEvent: {}
+[24.489459] (-) TimerEvent: {}
+[24.589796] (-) TimerEvent: {}
+[24.690101] (-) TimerEvent: {}
+[24.790395] (-) TimerEvent: {}
+[24.890666] (-) TimerEvent: {}
+[24.990953] (-) TimerEvent: {}
+[25.091217] (-) TimerEvent: {}
+[25.191485] (-) TimerEvent: {}
+[25.291757] (-) TimerEvent: {}
+[25.392023] (-) TimerEvent: {}
+[25.492312] (-) TimerEvent: {}
+[25.592548] (-) TimerEvent: {}
+[25.692837] (-) TimerEvent: {}
+[25.793083] (-) TimerEvent: {}
+[25.893309] (-) TimerEvent: {}
+[25.993541] (-) TimerEvent: {}
+[26.093800] (-) TimerEvent: {}
+[26.194071] (-) TimerEvent: {}
+[26.294348] (-) TimerEvent: {}
+[26.394615] (-) TimerEvent: {}
+[26.494985] (-) TimerEvent: {}
+[26.595370] (-) TimerEvent: {}
+[26.695670] (-) TimerEvent: {}
+[26.795987] (-) TimerEvent: {}
+[26.896273] (-) TimerEvent: {}
+[26.996668] (-) TimerEvent: {}
+[27.097242] (-) TimerEvent: {}
+[27.197599] (-) TimerEvent: {}
+[27.298054] (-) TimerEvent: {}
+[27.398456] (-) TimerEvent: {}
+[27.499028] (-) TimerEvent: {}
+[27.599316] (-) TimerEvent: {}
+[27.699654] (-) TimerEvent: {}
+[27.799949] (-) TimerEvent: {}
+[27.900252] (-) TimerEvent: {}
+[28.000532] (-) TimerEvent: {}
+[28.100855] (-) TimerEvent: {}
+[28.201240] (-) TimerEvent: {}
+[28.301588] (-) TimerEvent: {}
+[28.401903] (-) TimerEvent: {}
+[28.502203] (-) TimerEvent: {}
+[28.602506] (-) TimerEvent: {}
+[28.702816] (-) TimerEvent: {}
+[28.803101] (-) TimerEvent: {}
+[28.903388] (-) TimerEvent: {}
+[29.003677] (-) TimerEvent: {}
+[29.103949] (-) TimerEvent: {}
+[29.204209] (-) TimerEvent: {}
+[29.304451] (-) TimerEvent: {}
+[29.404726] (-) TimerEvent: {}
+[29.504983] (-) TimerEvent: {}
+[29.605244] (-) TimerEvent: {}
+[29.705554] (-) TimerEvent: {}
+[29.805812] (-) TimerEvent: {}
+[29.906073] (-) TimerEvent: {}
+[30.006353] (-) TimerEvent: {}
+[30.106578] (-) TimerEvent: {}
+[30.206816] (-) TimerEvent: {}
+[30.307056] (-) TimerEvent: {}
+[30.407312] (-) TimerEvent: {}
+[30.507572] (-) TimerEvent: {}
+[30.607851] (-) TimerEvent: {}
+[30.708132] (-) TimerEvent: {}
+[30.808387] (-) TimerEvent: {}
+[30.908639] (-) TimerEvent: {}
+[31.008920] (-) TimerEvent: {}
+[31.109171] (-) TimerEvent: {}
+[31.209440] (-) TimerEvent: {}
+[31.309712] (-) TimerEvent: {}
+[31.410192] (-) TimerEvent: {}
+[31.510556] (-) TimerEvent: {}
+[31.610861] (-) TimerEvent: {}
+[31.711156] (-) TimerEvent: {}
+[31.811451] (-) TimerEvent: {}
+[31.911738] (-) TimerEvent: {}
+[32.012196] (-) TimerEvent: {}
+[32.112809] (-) TimerEvent: {}
+[32.213116] (-) TimerEvent: {}
+[32.313408] (-) TimerEvent: {}
+[32.413720] (-) TimerEvent: {}
+[32.514001] (-) TimerEvent: {}
+[32.614308] (-) TimerEvent: {}
+[32.714634] (-) TimerEvent: {}
+[32.814924] (-) TimerEvent: {}
+[32.915203] (-) TimerEvent: {}
+[33.015461] (-) TimerEvent: {}
+[33.115860] (-) TimerEvent: {}
+[33.216356] (-) TimerEvent: {}
+[33.316647] (-) TimerEvent: {}
+[33.417120] (-) TimerEvent: {}
+[33.517413] (-) TimerEvent: {}
+[33.617672] (-) TimerEvent: {}
+[33.717987] (-) TimerEvent: {}
+[33.818312] (-) TimerEvent: {}
+[33.918617] (-) TimerEvent: {}
+[34.018904] (-) TimerEvent: {}
+[34.119163] (-) TimerEvent: {}
+[34.219440] (-) TimerEvent: {}
+[34.319735] (-) TimerEvent: {}
+[34.420012] (-) TimerEvent: {}
+[34.520316] (-) TimerEvent: {}
+[34.620564] (-) TimerEvent: {}
+[34.720913] (-) TimerEvent: {}
+[34.821181] (-) TimerEvent: {}
+[34.921479] (-) TimerEvent: {}
+[35.021755] (-) TimerEvent: {}
+[35.122018] (-) TimerEvent: {}
+[35.222373] (-) TimerEvent: {}
+[35.322626] (-) TimerEvent: {}
+[35.422905] (-) TimerEvent: {}
+[35.523179] (-) TimerEvent: {}
+[35.623461] (-) TimerEvent: {}
+[35.723742] (-) TimerEvent: {}
+[35.824009] (-) TimerEvent: {}
+[35.924290] (-) TimerEvent: {}
+[36.024569] (-) TimerEvent: {}
+[36.124855] (-) TimerEvent: {}
+[36.225211] (-) TimerEvent: {}
+[36.325815] (-) TimerEvent: {}
+[36.426555] (-) TimerEvent: {}
+[36.527124] (-) TimerEvent: {}
+[36.627487] (-) TimerEvent: {}
+[36.727922] (-) TimerEvent: {}
+[36.828665] (-) TimerEvent: {}
+[36.929312] (-) TimerEvent: {}
+[37.029696] (-) TimerEvent: {}
+[37.130183] (-) TimerEvent: {}
+[37.230681] (-) TimerEvent: {}
+[37.330993] (-) TimerEvent: {}
+[37.431314] (-) TimerEvent: {}
+[37.531601] (-) TimerEvent: {}
+[37.631911] (-) TimerEvent: {}
+[37.732237] (-) TimerEvent: {}
+[37.832602] (-) TimerEvent: {}
+[37.932876] (-) TimerEvent: {}
+[38.033131] (-) TimerEvent: {}
+[38.133403] (-) TimerEvent: {}
+[38.233757] (-) TimerEvent: {}
+[38.334048] (-) TimerEvent: {}
+[38.434420] (-) TimerEvent: {}
+[38.534705] (-) TimerEvent: {}
+[38.634984] (-) TimerEvent: {}
+[38.735236] (-) TimerEvent: {}
+[38.835505] (-) TimerEvent: {}
+[38.935780] (-) TimerEvent: {}
+[39.036070] (-) TimerEvent: {}
+[39.136340] (-) TimerEvent: {}
+[39.236617] (-) TimerEvent: {}
+[39.336928] (-) TimerEvent: {}
+[39.437180] (-) TimerEvent: {}
+[39.537537] (-) TimerEvent: {}
+[39.639273] (-) TimerEvent: {}
+[39.739589] (-) TimerEvent: {}
+[39.839972] (-) TimerEvent: {}
+[39.940352] (-) TimerEvent: {}
+[40.040720] (-) TimerEvent: {}
+[40.141047] (-) TimerEvent: {}
+[40.241309] (-) TimerEvent: {}
+[40.341669] (-) TimerEvent: {}
+[40.441933] (-) TimerEvent: {}
+[40.542194] (-) TimerEvent: {}
+[40.642475] (-) TimerEvent: {}
+[40.743289] (-) TimerEvent: {}
+[40.844022] (-) TimerEvent: {}
+[40.944607] (-) TimerEvent: {}
+[41.045056] (-) TimerEvent: {}
+[41.145305] (-) TimerEvent: {}
+[41.245551] (-) TimerEvent: {}
+[41.345829] (-) TimerEvent: {}
+[41.446210] (-) TimerEvent: {}
+[41.546491] (-) TimerEvent: {}
+[41.646776] (-) TimerEvent: {}
+[41.747030] (-) TimerEvent: {}
+[41.847286] (-) TimerEvent: {}
+[41.947566] (-) TimerEvent: {}
+[42.047841] (-) TimerEvent: {}
+[42.148191] (-) TimerEvent: {}
+[42.248608] (-) TimerEvent: {}
+[42.348888] (-) TimerEvent: {}
+[42.449143] (-) TimerEvent: {}
+[42.549398] (-) TimerEvent: {}
+[42.649682] (-) TimerEvent: {}
+[42.749978] (-) TimerEvent: {}
+[42.850285] (-) TimerEvent: {}
+[42.950548] (-) TimerEvent: {}
+[43.050834] (-) TimerEvent: {}
+[43.151112] (-) TimerEvent: {}
+[43.251380] (-) TimerEvent: {}
+[43.351662] (-) TimerEvent: {}
+[43.451962] (-) TimerEvent: {}
+[43.552244] (-) TimerEvent: {}
+[43.652577] (-) TimerEvent: {}
+[43.752951] (-) TimerEvent: {}
+[43.853202] (-) TimerEvent: {}
+[43.953462] (-) TimerEvent: {}
+[44.053740] (-) TimerEvent: {}
+[44.154023] (-) TimerEvent: {}
+[44.254360] (-) TimerEvent: {}
+[44.354636] (-) TimerEvent: {}
+[44.454904] (-) TimerEvent: {}
+[44.555158] (-) TimerEvent: {}
+[44.655423] (-) TimerEvent: {}
+[44.755713] (-) TimerEvent: {}
+[44.856075] (-) TimerEvent: {}
+[44.956431] (-) TimerEvent: {}
+[45.056731] (-) TimerEvent: {}
+[45.144891] (ur5_scaled_sender) StdoutLine: {'line': b'[100%] \x1b[32m\x1b[1mLinking CXX executable opt_teleop\x1b[0m\n'}
+[45.156914] (-) TimerEvent: {}
+[45.257520] (-) TimerEvent: {}
+[45.357793] (-) TimerEvent: {}
+[45.458063] (-) TimerEvent: {}
+[45.558600] (-) TimerEvent: {}
+[45.659127] (-) TimerEvent: {}
+[45.760113] (-) TimerEvent: {}
+[45.861163] (-) TimerEvent: {}
+[45.962249] (-) TimerEvent: {}
+[46.062642] (-) TimerEvent: {}
+[46.162918] (-) TimerEvent: {}
+[46.263168] (-) TimerEvent: {}
+[46.363436] (-) TimerEvent: {}
+[46.463700] (-) TimerEvent: {}
+[46.564126] (-) TimerEvent: {}
+[46.664600] (-) TimerEvent: {}
+[46.764868] (-) TimerEvent: {}
+[46.865123] (-) TimerEvent: {}
+[46.965369] (-) TimerEvent: {}
+[47.065673] (-) TimerEvent: {}
+[47.167195] (-) TimerEvent: {}
+[47.267900] (-) TimerEvent: {}
+[47.368330] (-) TimerEvent: {}
+[47.398384] (ur5_scaled_sender) StdoutLine: {'line': b'[100%] Built target opt_teleop\n'}
+[47.408335] (ur5_scaled_sender) CommandEnded: {'returncode': 0}
+[47.409261] (ur5_scaled_sender) JobProgress: {'identifier': 'ur5_scaled_sender', 'progress': 'install'}
+[47.416922] (ur5_scaled_sender) Command: {'cmd': ['/usr/bin/cmake', '--install', '/home/utec/try_opt/build/ur5_scaled_sender'], 'cwd': '/home/utec/try_opt/build/ur5_scaled_sender', 'env': OrderedDict([('PYTHON_BASIC_REPL', '1'), ('LESSOPEN', '| /usr/bin/lesspipe %s'), ('LANGUAGE', 'en'), ('USER', 'utec'), ('LC_TIME', 'es_PE.UTF-8'), ('XDG_SESSION_TYPE', 'wayland'), ('GIT_ASKPASS', '/usr/share/code/resources/app/extensions/git/dist/askpass.sh'), ('SHLVL', '2'), ('LD_LIBRARY_PATH', '/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib'), ('HOME', '/home/utec'), ('CHROME_DESKTOP', 'code.desktop'), ('OLDPWD', '/home/utec/try_opt/src/ur5_scaled_sender/src'), ('TERM_PROGRAM_VERSION', '1.106.3'), ('DESKTOP_SESSION', 'ubuntu'), ('OH_SDK_BASE', '/opt/OpenHaptics/Developer/3.4-0'), ('ROS_PYTHON_VERSION', '3'), ('GNOME_SHELL_SESSION_MODE', 'ubuntu'), ('GTK_MODULES', 'gail:atk-bridge'), ('VSCODE_GIT_ASKPASS_MAIN', '/usr/share/code/resources/app/extensions/git/dist/askpass-main.js'), ('LC_MONETARY', 'es_PE.UTF-8'), ('VSCODE_GIT_ASKPASS_NODE', '/usr/share/code/code'), ('PYDEVD_DISABLE_FILE_VALIDATION', '1'), ('SYSTEMD_EXEC_PID', '2146'), ('BUNDLED_DEBUGPY_PATH', '/home/utec/.vscode/extensions/ms-python.debugpy-2025.16.0-linux-x64/bundled/libs/debugpy'), ('VSCODE_PYTHON_AUTOACTIVATE_GUARD', '1'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1000/bus'), ('COLORTERM', 'truecolor'), ('IM_CONFIG_PHASE', '1'), ('WAYLAND_DISPLAY', 'wayland-0'), ('ROS_DISTRO', 'humble'), ('LOGNAME', 'utec'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('XDG_SESSION_CLASS', 'user'), ('USERNAME', 'utec'), ('TERM', 'xterm-256color'), ('GNOME_DESKTOP_SESSION_ID', 'this-is-deprecated'), ('ROS_LOCALHOST_ONLY', '0'), ('PATH', '/opt/ros/humble/bin:/home/utec/.config/Code/User/globalStorage/github.copilot-chat/copilotCli:/home/utec/.config/Code/User/globalStorage/github.copilot-chat/debugCommand:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin:/home/utec/.vscode/extensions/ms-python.debugpy-2025.16.0-linux-x64/bundled/scripts/noConfigScripts'), ('SESSION_MANAGER', 'local/utec-ThinkPad-E15-Gen-2:@/tmp/.ICE-unix/1959,unix/utec-ThinkPad-E15-Gen-2:/tmp/.ICE-unix/1959'), ('PAPERSIZE', 'a4'), ('XDG_MENU_PREFIX', 'gnome-'), ('LC_ADDRESS', 'es_PE.UTF-8'), ('GNOME_TERMINAL_SCREEN', '/org/gnome/Terminal/screen/5fa5812b_94d5_4d58_9c69_58b767a54dc4'), ('GNOME_SETUP_DISPLAY', ':1'), ('XDG_RUNTIME_DIR', '/run/user/1000'), ('GDK_BACKEND', 'x11'), ('DISPLAY', ':0'), ('VSCODE_DEBUGPY_ADAPTER_ENDPOINTS', '/home/utec/.vscode/extensions/ms-python.debugpy-2025.16.0-linux-x64/.noConfigDebugAdapterEndpoints/endpoint-bb576b575c1a7e2d.txt'), ('LANG', 'en_US.UTF-8'), ('XDG_CURRENT_DESKTOP', 'Unity'), ('PYTHONSTARTUP', '/home/utec/.config/Code/User/workspaceStorage/de6342ca979a64c727de50d867ecd2d7/ms-python.python/pythonrc.py'), ('LC_TELEPHONE', 'es_PE.UTF-8'), ('XMODIFIERS', '@im=ibus'), ('XDG_SESSION_DESKTOP', 'ubuntu'), ('XAUTHORITY', '/run/user/1000/.mutter-Xwaylandauth.6MDRG3'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('VSCODE_GIT_IPC_HANDLE', '/run/user/1000/vscode-git-b43e6ba8bb.sock'), ('GNOME_TERMINAL_SERVICE', ':1.116'), ('TERM_PROGRAM', 'vscode'), ('SSH_AGENT_LAUNCHER', 'gnome-keyring'), ('SSH_AUTH_SOCK', '/run/user/1000/keyring/ssh'), ('AMENT_PREFIX_PATH', '/opt/ros/humble'), ('ORIGINAL_XDG_CURRENT_DESKTOP', 'ubuntu:GNOME'), ('SHELL', '/bin/bash'), ('LC_NAME', 'es_PE.UTF-8'), ('QT_ACCESSIBILITY', '1'), ('GDMSESSION', 'ubuntu'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('LC_MEASUREMENT', 'es_PE.UTF-8'), ('LC_IDENTIFICATION', 'es_PE.UTF-8'), ('VSCODE_GIT_ASKPASS_EXTRA_ARGS', ''), ('GIT_PAGER', 'cat'), ('QT_IM_MODULE', 'ibus'), ('PWD', '/home/utec/try_opt/build/ur5_scaled_sender'), ('LC_ALL', 'en_US.UTF-8'), ('XDG_CONFIG_DIRS', '/etc/xdg/xdg-ubuntu:/etc/xdg'), ('XDG_DATA_DIRS', '/usr/share/ubuntu:/home/utec/.local/share/flatpak/exports/share:/var/lib/flatpak/exports/share:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop'), ('PYTHONPATH', '/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages'), ('LC_NUMERIC', 'es_PE.UTF-8'), ('LC_PAPER', 'es_PE.UTF-8'), ('COLCON', '1'), ('VTE_VERSION', '6800'), ('CMAKE_PREFIX_PATH', '/opt/ros/humble')]), 'shell': False}
+[47.422527] (ur5_scaled_sender) StdoutLine: {'line': b'-- Install configuration: ""\n'}
+[47.422670] (ur5_scaled_sender) StdoutLine: {'line': b'-- Up-to-date: /home/utec/try_opt/install/ur5_scaled_sender/lib/ur5_scaled_sender/scaled_traj_publisher\n'}
+[47.422736] (ur5_scaled_sender) StdoutLine: {'line': b'-- Installing: /home/utec/try_opt/install/ur5_scaled_sender/lib/ur5_scaled_sender/opt_teleop\n'}
+[47.436134] (ur5_scaled_sender) StdoutLine: {'line': b'-- Set runtime path of "/home/utec/try_opt/install/ur5_scaled_sender/lib/ur5_scaled_sender/opt_teleop" to ""\n'}
+[47.436284] (ur5_scaled_sender) StdoutLine: {'line': b'-- Up-to-date: /home/utec/try_opt/install/ur5_scaled_sender/lib/ur5_scaled_sender/test_jacobian\n'}
+[47.436335] (ur5_scaled_sender) StdoutLine: {'line': b'-- Installing: /home/utec/try_opt/install/ur5_scaled_sender/lib/ur5_scaled_sender/opt_teleop_pinocchio\n'}
+[47.448338] (ur5_scaled_sender) StdoutLine: {'line': b'-- Set runtime path of "/home/utec/try_opt/install/ur5_scaled_sender/lib/ur5_scaled_sender/opt_teleop_pinocchio" to ""\n'}
+[47.448530] (ur5_scaled_sender) StdoutLine: {'line': b'-- Up-to-date: /home/utec/try_opt/install/ur5_scaled_sender/share/ur5_scaled_sender/launch\n'}
+[47.448589] (ur5_scaled_sender) StdoutLine: {'line': b'-- Installing: /home/utec/try_opt/install/ur5_scaled_sender/share/ur5_scaled_sender/launch/opt_teleop_pinocchio.launch.py\n'}
+[47.448640] (ur5_scaled_sender) StdoutLine: {'line': b'-- Up-to-date: /home/utec/try_opt/install/ur5_scaled_sender/share/ur5_scaled_sender/launch/send_trajectory.launch.py\n'}
+[47.448721] (ur5_scaled_sender) StdoutLine: {'line': b'-- Installing: /home/utec/try_opt/install/ur5_scaled_sender/share/ur5_scaled_sender/launch/opt_teleop.launch.py\n'}
+[47.448776] (ur5_scaled_sender) StdoutLine: {'line': b'-- Up-to-date: /home/utec/try_opt/install/ur5_scaled_sender/share/ament_index/resource_index/package_run_dependencies/ur5_scaled_sender\n'}
+[47.448817] (ur5_scaled_sender) StdoutLine: {'line': b'-- Installing: /home/utec/try_opt/install/ur5_scaled_sender/share/ament_index/resource_index/parent_prefix_path/ur5_scaled_sender\n'}
+[47.448874] (ur5_scaled_sender) StdoutLine: {'line': b'-- Up-to-date: /home/utec/try_opt/install/ur5_scaled_sender/share/ur5_scaled_sender/environment/ament_prefix_path.sh\n'}
+[47.448916] (ur5_scaled_sender) StdoutLine: {'line': b'-- Installing: /home/utec/try_opt/install/ur5_scaled_sender/share/ur5_scaled_sender/environment/ament_prefix_path.dsv\n'}
+[47.448956] (ur5_scaled_sender) StdoutLine: {'line': b'-- Up-to-date: /home/utec/try_opt/install/ur5_scaled_sender/share/ur5_scaled_sender/environment/path.sh\n'}
+[47.449012] (ur5_scaled_sender) StdoutLine: {'line': b'-- Installing: /home/utec/try_opt/install/ur5_scaled_sender/share/ur5_scaled_sender/environment/path.dsv\n'}
+[47.449054] (ur5_scaled_sender) StdoutLine: {'line': b'-- Up-to-date: /home/utec/try_opt/install/ur5_scaled_sender/share/ur5_scaled_sender/local_setup.bash\n'}
+[47.449094] (ur5_scaled_sender) StdoutLine: {'line': b'-- Up-to-date: /home/utec/try_opt/install/ur5_scaled_sender/share/ur5_scaled_sender/local_setup.sh\n'}
+[47.449165] (ur5_scaled_sender) StdoutLine: {'line': b'-- Up-to-date: /home/utec/try_opt/install/ur5_scaled_sender/share/ur5_scaled_sender/local_setup.zsh\n'}
+[47.449202] (ur5_scaled_sender) StdoutLine: {'line': b'-- Installing: /home/utec/try_opt/install/ur5_scaled_sender/share/ur5_scaled_sender/local_setup.dsv\n'}
+[47.449238] (ur5_scaled_sender) StdoutLine: {'line': b'-- Installing: /home/utec/try_opt/install/ur5_scaled_sender/share/ur5_scaled_sender/package.dsv\n'}
+[47.449290] (ur5_scaled_sender) StdoutLine: {'line': b'-- Up-to-date: /home/utec/try_opt/install/ur5_scaled_sender/share/ament_index/resource_index/packages/ur5_scaled_sender\n'}
+[47.449332] (ur5_scaled_sender) StdoutLine: {'line': b'-- Up-to-date: /home/utec/try_opt/install/ur5_scaled_sender/share/ur5_scaled_sender/cmake/ur5_scaled_senderConfig.cmake\n'}
+[47.449369] (ur5_scaled_sender) StdoutLine: {'line': b'-- Up-to-date: /home/utec/try_opt/install/ur5_scaled_sender/share/ur5_scaled_sender/cmake/ur5_scaled_senderConfig-version.cmake\n'}
+[47.449406] (ur5_scaled_sender) StdoutLine: {'line': b'-- Up-to-date: /home/utec/try_opt/install/ur5_scaled_sender/share/ur5_scaled_sender/package.xml\n'}
+[47.450430] (ur5_scaled_sender) CommandEnded: {'returncode': 0}
+[47.463387] (ur5_scaled_sender) JobEnded: {'identifier': 'ur5_scaled_sender', 'rc': 0}
+[47.463857] (-) EventReactorShutdown: {}
