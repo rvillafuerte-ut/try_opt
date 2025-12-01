@@ -1,0 +1,3 @@
+[submodule "src/haptic"]
+	path = src/haptic
+	url = https://github.com/rvillafuerte-ut/Touch_ROS2.git
