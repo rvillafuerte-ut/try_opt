@@ -6,6 +6,9 @@
 /home/utec/try_opt/install/ur5_scaled_sender/share/ur5_scaled_sender/launch/opt_teleop_pinocchio.launch.py
 /home/utec/try_opt/install/ur5_scaled_sender/share/ur5_scaled_sender/launch/send_trajectory.launch.py
 /home/utec/try_opt/install/ur5_scaled_sender/share/ur5_scaled_sender/launch/opt_teleop_haptic.launch.py
+/home/utec/try_opt/install/ur5_scaled_sender/share/ur5_scaled_sender/launch/visualize_omni.launch.py
+/home/utec/try_opt/install/ur5_scaled_sender/share/ur5_scaled_sender/launch/view_both_robots.launch.py
+/home/utec/try_opt/install/ur5_scaled_sender/share/ur5_scaled_sender/launch/view_phantom.launch.py
 /home/utec/try_opt/install/ur5_scaled_sender/share/ur5_scaled_sender/launch/opt_teleop.launch.py
 /home/utec/try_opt/install/ur5_scaled_sender/share/ament_index/resource_index/package_run_dependencies/ur5_scaled_sender
 /home/utec/try_opt/install/ur5_scaled_sender/share/ament_index/resource_index/parent_prefix_path/ur5_scaled_sender

@@ -217,15 +217,31 @@ private:
             p_des = p_start_ + phantom_offset_robot;
             
             // Orientation offset with remapping and signs
-            Eigen::Quaterniond quat_offset = phantom_quat_current_ * phantom_quat_initial_.inverse();
+            // Calculate local rotation (relative to initial stylus frame)
+            // Was: Eigen::Quaterniond quat_offset = phantom_quat_current_ * phantom_quat_initial_.inverse();
+            Eigen::Quaterniond quat_offset = phantom_quat_initial_.inverse() * phantom_quat_current_;
+            
             Eigen::AngleAxisd aa(quat_offset);
             Eigen::Vector3d axis_angle_raw = aa.axis() * aa.angle();
             
+            // Debug logging for TF comparison
+            static int log_counter = 0;
+            if (log_counter++ % 50 == 0) {
+                RCLCPP_INFO(this->get_logger(), "--- Orientation Debug ---");
+                RCLCPP_INFO(this->get_logger(), "Phantom Local Axis: [%.2f, %.2f, %.2f]", 
+                           axis_angle_raw(0), axis_angle_raw(1), axis_angle_raw(2));
+            }
+
             Eigen::Vector3d axis_angle_remapped;
             axis_angle_remapped(0) = axis_angle_raw(map_roll_) * sign_roll_ * haptic_scale_rot_;
             axis_angle_remapped(1) = axis_angle_raw(map_pitch_) * sign_pitch_ * haptic_scale_rot_;
             axis_angle_remapped(2) = axis_angle_raw(map_yaw_) * sign_yaw_ * haptic_scale_rot_;
             
+            if (log_counter % 50 == 1) { // Use same counter but check 1 to print in same cycle
+                 RCLCPP_INFO(this->get_logger(), "Robot Remapped Axis: [%.2f, %.2f, %.2f]", 
+                           axis_angle_remapped(0), axis_angle_remapped(1), axis_angle_remapped(2));
+            }
+
             double angle = axis_angle_remapped.norm();
             Eigen::Matrix3d R_offset;
             if (angle > 1e-6) {
