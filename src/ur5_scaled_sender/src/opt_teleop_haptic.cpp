@@ -7,6 +7,8 @@
 #include <pinocchio/algorithm/kinematics.hpp>
 #include <pinocchio/algorithm/frames.hpp>
 #include <pinocchio/algorithm/jacobian.hpp>
+#include <fstream>
+#include <iomanip>
 
 using namespace std::chrono_literals;
 
@@ -16,15 +18,19 @@ class OptTeleop : public rclcpp::Node {
     pinocchio::FrameIndex ee_id_;
     int nq_;
     
-    Eigen::VectorXd q_current_, q_cmd_;
-    Eigen::Matrix3d R_start_;
-    Eigen::Vector3d p_start_;
+    Eigen::VectorXd q_current_, q_cmd_, dq_current_, q_prev_cmd_;
+    Eigen::Matrix3d R_start_, R_des_filtered_;
+    Eigen::Vector3d p_start_, p_des_filtered_;
+    double filter_alpha_ = 0.15;
     bool robot_initialized_ = false;
     bool haptic_initialized_ = false;
     
     Eigen::Vector3d phantom_pos_initial_, phantom_pos_current_;
     Eigen::Quaterniond phantom_quat_initial_, phantom_quat_current_;
     
+    std::ofstream csv_file_;
+    double t0_;
+
     // Parameters
     double scale_pos_, scale_rot_;
     Eigen::Vector3d sign_pos_, sign_rot_;
@@ -44,6 +50,11 @@ class OptTeleop : public rclcpp::Node {
 
 public:
     OptTeleop() : Node("opt_teleop_haptic"), data_(model_) {
+        csv_file_.open("/home/utec/try_opt/teleop_data.csv");
+        // Header: time, qc0-5, qa0-5, dqa0-5, p_des_xyz, p_act_xyz
+        csv_file_ << "time,qc0,qc1,qc2,qc3,qc4,qc5,qa0,qa1,qa2,qa3,qa4,qa5,dqa0,dqa1,dqa2,dqa3,dqa4,dqa5,pd0,pd1,pd2,pa0,pa1,pa2\n";
+        t0_ = this->now().seconds();
+
         // 1. Parameters
         auto urdf_path = this->declare_parameter<std::string>("urdf_path", "/home/utec/try_opt/urdf/ur5.urdf");
         double ctrl_hz = this->declare_parameter<double>("ctrl_hz", 100.0);
@@ -74,6 +85,8 @@ public:
         
         q_current_ = Eigen::VectorXd::Zero(nq_);
         q_cmd_ = Eigen::VectorXd::Zero(nq_);
+        dq_current_ = Eigen::VectorXd::Zero(nq_);
+        q_prev_cmd_ = Eigen::VectorXd::Zero(nq_);
         
         // Limits
         q_min_ = Eigen::VectorXd::Constant(nq_, -2*M_PI); q_min_[2] = -M_PI;
@@ -86,16 +99,21 @@ public:
                 for(size_t i=0; i<joint_names_.size(); ++i) {
                     auto it = std::find(msg->name.begin(), msg->name.end(), joint_names_[i]);
                     if(it != msg->name.end()) {
-                        q_current_(i) = msg->position[std::distance(msg->name.begin(), it)];
+                        size_t idx = std::distance(msg->name.begin(), it);
+                        q_current_(i) = msg->position[idx];
+                        if(msg->velocity.size() > idx) dq_current_(i) = msg->velocity[idx];
                     }
                 }
                 
                 if(!robot_initialized_ && q_current_.norm() > 0.001) {
                     q_cmd_ = q_current_;
+                    q_prev_cmd_ = q_current_;
                     pinocchio::forwardKinematics(model_, data_, q_current_);
                     pinocchio::framesForwardKinematics(model_, data_, q_current_);
                     p_start_ = data_.oMf[ee_id_].translation();
                     R_start_ = data_.oMf[ee_id_].rotation();
+                    p_des_filtered_ = p_start_;
+                    R_des_filtered_ = R_start_;
                     robot_initialized_ = true;
                     RCLCPP_INFO(this->get_logger(), "Robot Initialized.");
                 }
@@ -120,6 +138,8 @@ public:
         timer_ = this->create_wall_timer(std::chrono::duration<double>(1.0/ctrl_hz), 
                                        std::bind(&OptTeleop::control_loop, this));
     }
+
+    ~OptTeleop() { if(csv_file_.is_open()) csv_file_.close(); }
 
 private:
     void control_loop() {
@@ -146,6 +166,13 @@ private:
             R_des = R_start_ * Eigen::AngleAxisd(axis_map.norm(), axis_map.normalized()).toRotationMatrix();
         }
 
+        // --- Filtering ---
+        p_des_filtered_ = filter_alpha_ * p_des + (1.0 - filter_alpha_) * p_des_filtered_;
+        
+        Eigen::Quaterniond q_filt(R_des_filtered_);
+        Eigen::Quaterniond q_tgt(R_des);
+        R_des_filtered_ = q_filt.slerp(filter_alpha_, q_tgt).toRotationMatrix();
+
         // --- 2. Inverse Kinematics (Damped Least Squares) ---
         for(int iter=0; iter<5; ++iter) {
             pinocchio::forwardKinematics(model_, data_, q_cmd_);
@@ -154,8 +181,8 @@ private:
             Eigen::MatrixXd J(6, nq_);
             pinocchio::computeFrameJacobian(model_, data_, q_cmd_, ee_id_, pinocchio::LOCAL_WORLD_ALIGNED, J);
             
-            Eigen::Vector3d ep = p_des - data_.oMf[ee_id_].translation();
-            Eigen::Matrix3d Re = R_des * data_.oMf[ee_id_].rotation().transpose();
+            Eigen::Vector3d ep = p_des_filtered_ - data_.oMf[ee_id_].translation();
+            Eigen::Matrix3d Re = R_des_filtered_ * data_.oMf[ee_id_].rotation().transpose();
             Eigen::Vector3d er;
             er << Re(2,1)-Re(1,2), Re(0,2)-Re(2,0), Re(1,0)-Re(0,1);
             er *= 0.5;
@@ -170,13 +197,31 @@ private:
         // --- 3. Publish ---
         for(int i=0; i<nq_; ++i) q_cmd_(i) = std::clamp(q_cmd_(i), q_min_(i), q_max_(i));
         
+        // Velocity calculation
+        double dt = 0.01; 
+        Eigen::VectorXd v_cmd = (q_cmd_ - q_prev_cmd_) / dt;
+        if(v_cmd.cwiseAbs().maxCoeff() > 2.0) v_cmd *= (2.0 / v_cmd.cwiseAbs().maxCoeff());
+        q_prev_cmd_ = q_cmd_;
+
         trajectory_msgs::msg::JointTrajectory cmd;
         cmd.header.stamp = this->now();
         cmd.joint_names = joint_names_;
         cmd.points.resize(1);
         cmd.points[0].positions.assign(q_cmd_.data(), q_cmd_.data() + nq_);
+        cmd.points[0].velocities.assign(v_cmd.data(), v_cmd.data() + nq_);
         cmd.points[0].time_from_start = rclcpp::Duration::from_seconds(0.02);
         pub_cmd_->publish(cmd);
+
+        if(csv_file_.is_open()) {
+            Eigen::Vector3d p_act = data_.oMf[ee_id_].translation();
+            csv_file_ << std::fixed << std::setprecision(4) << (this->now().seconds() - t0_);
+            for(int i=0; i<nq_; ++i) csv_file_ << "," << q_cmd_(i);
+            for(int i=0; i<nq_; ++i) csv_file_ << "," << q_current_(i);
+            for(int i=0; i<nq_; ++i) csv_file_ << "," << dq_current_(i);
+            csv_file_ << "," << p_des(0) << "," << p_des(1) << "," << p_des(2);
+            csv_file_ << "," << p_act(0) << "," << p_act(1) << "," << p_act(2);
+            csv_file_ << "\n";
+        }
     }
 };
 
