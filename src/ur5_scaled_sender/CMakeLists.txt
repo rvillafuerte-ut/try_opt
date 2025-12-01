@@ -20,26 +20,13 @@ ament_target_dependencies(scaled_traj_publisher rclcpp trajectory_msgs)
 target_include_directories(scaled_traj_publisher PRIVATE ${EIGEN3_INCLUDE_DIRS})
 target_link_libraries(scaled_traj_publisher Eigen3::Eigen)
 
-add_executable(opt_teleop src/opt_teleop.cpp)
-ament_target_dependencies(opt_teleop rclcpp trajectory_msgs sensor_msgs)
-target_include_directories(opt_teleop PRIVATE ${EIGEN3_INCLUDE_DIRS} ${pinocchio_INCLUDE_DIRS})
-target_link_libraries(opt_teleop Eigen3::Eigen ${pinocchio_LIBRARIES})
-
-add_executable(test_jacobian src/test_jacobian.cpp)
-target_include_directories(test_jacobian PRIVATE ${EIGEN3_INCLUDE_DIRS})
-target_link_libraries(test_jacobian Eigen3::Eigen yaml-cpp)
-
-add_executable(opt_teleop_pinocchio src/opt_teleop_pinocchio.cpp)
-ament_target_dependencies(opt_teleop_pinocchio rclcpp trajectory_msgs sensor_msgs)
-target_include_directories(opt_teleop_pinocchio PRIVATE ${EIGEN3_INCLUDE_DIRS} ${pinocchio_INCLUDE_DIRS})
-target_link_libraries(opt_teleop_pinocchio Eigen3::Eigen ${pinocchio_LIBRARIES})
 
 add_executable(opt_teleop_haptic src/opt_teleop_haptic.cpp)
 ament_target_dependencies(opt_teleop_haptic rclcpp trajectory_msgs sensor_msgs geometry_msgs)
 target_include_directories(opt_teleop_haptic PRIVATE ${EIGEN3_INCLUDE_DIRS} ${pinocchio_INCLUDE_DIRS})
 target_link_libraries(opt_teleop_haptic Eigen3::Eigen ${pinocchio_LIBRARIES})
 
-install(TARGETS scaled_traj_publisher opt_teleop test_jacobian opt_teleop_pinocchio opt_teleop_haptic
+install(TARGETS scaled_traj_publisher opt_teleop_haptic
   DESTINATION lib/${PROJECT_NAME})
 
 install(DIRECTORY launch/

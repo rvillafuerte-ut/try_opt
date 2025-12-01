@@ -18,21 +18,26 @@ class OptTeleop : public rclcpp::Node {
     pinocchio::FrameIndex ee_id_;
     int nq_;
     
-    Eigen::VectorXd q_current_, q_cmd_, dq_current_, q_prev_cmd_;
-    Eigen::Matrix3d R_start_, R_des_filtered_;
-    Eigen::Vector3d p_start_, p_des_filtered_;
-    double filter_alpha_ = 0.15;
+    Eigen::VectorXd q_current_, q_cmd_, dq_current_;
+    Eigen::Matrix3d R_start_;
+    Eigen::Vector3d p_start_;
     bool robot_initialized_ = false;
     bool haptic_initialized_ = false;
     
     Eigen::Vector3d phantom_pos_initial_, phantom_pos_current_;
     Eigen::Quaterniond phantom_quat_initial_, phantom_quat_current_;
     
+    // Filter variables
+    Eigen::Vector3d phantom_pos_filtered_;
+    Eigen::Quaterniond phantom_quat_filtered_;
+    bool filter_initialized_ = false;
+
     std::ofstream csv_file_;
     double t0_;
 
     // Parameters
     double scale_pos_, scale_rot_;
+    double filter_gain_, max_joint_vel_;
     Eigen::Vector3d sign_pos_, sign_rot_;
     Eigen::Vector3i map_pos_, map_rot_;
     
@@ -61,6 +66,8 @@ public:
         
         scale_pos_ = this->declare_parameter<double>("haptic_scale_pos", 1.0);
         scale_rot_ = this->declare_parameter<double>("haptic_scale_rot", 1.0);
+        filter_gain_ = this->declare_parameter<double>("filter_gain", 0.1); // 0.0 to 1.0 (1.0 = no filter)
+        max_joint_vel_ = this->declare_parameter<double>("max_joint_vel", 0.7); // rad/s
         
         // Mapping: Robot Index <- Phantom Index
         map_pos_ = {this->declare_parameter<int>("map_x", 2),
@@ -86,7 +93,6 @@ public:
         q_current_ = Eigen::VectorXd::Zero(nq_);
         q_cmd_ = Eigen::VectorXd::Zero(nq_);
         dq_current_ = Eigen::VectorXd::Zero(nq_);
-        q_prev_cmd_ = Eigen::VectorXd::Zero(nq_);
         
         // Limits
         q_min_ = Eigen::VectorXd::Constant(nq_, -2*M_PI); q_min_[2] = -M_PI;
@@ -107,13 +113,10 @@ public:
                 
                 if(!robot_initialized_ && q_current_.norm() > 0.001) {
                     q_cmd_ = q_current_;
-                    q_prev_cmd_ = q_current_;
                     pinocchio::forwardKinematics(model_, data_, q_current_);
                     pinocchio::framesForwardKinematics(model_, data_, q_current_);
                     p_start_ = data_.oMf[ee_id_].translation();
                     R_start_ = data_.oMf[ee_id_].rotation();
-                    p_des_filtered_ = p_start_;
-                    R_des_filtered_ = R_start_;
                     robot_initialized_ = true;
                     RCLCPP_INFO(this->get_logger(), "Robot Initialized.");
                 }
@@ -124,9 +127,19 @@ public:
                 phantom_pos_current_ << msg->pose.position.x, msg->pose.position.y, msg->pose.position.z;
                 phantom_quat_current_ = Eigen::Quaterniond(msg->pose.orientation.w, msg->pose.orientation.x, msg->pose.orientation.y, msg->pose.orientation.z);
                 
+                // Apply Low-Pass Filter
+                if (!filter_initialized_) {
+                    phantom_pos_filtered_ = phantom_pos_current_;
+                    phantom_quat_filtered_ = phantom_quat_current_;
+                    filter_initialized_ = true;
+                } else {
+                    phantom_pos_filtered_ = phantom_pos_filtered_ * (1.0 - filter_gain_) + phantom_pos_current_ * filter_gain_;
+                    phantom_quat_filtered_ = phantom_quat_filtered_.slerp(filter_gain_, phantom_quat_current_);
+                }
+
                 if(robot_initialized_ && !haptic_initialized_) {
-                    phantom_pos_initial_ = phantom_pos_current_;
-                    phantom_quat_initial_ = phantom_quat_current_;
+                    phantom_pos_initial_ = phantom_pos_filtered_;
+                    phantom_quat_initial_ = phantom_quat_filtered_;
                     haptic_initialized_ = true;
                     RCLCPP_INFO(this->get_logger(), "Haptic Initialized.");
                 }
@@ -149,14 +162,14 @@ private:
         Eigen::Vector3d p_des = p_start_;
         Eigen::Matrix3d R_des = R_start_;
         
-        // Position Mapping
-        Eigen::Vector3d d_pos_raw = phantom_pos_current_ - phantom_pos_initial_;
+        // Position Mapping (Using Filtered Data)
+        Eigen::Vector3d d_pos_raw = phantom_pos_filtered_ - phantom_pos_initial_;
         Eigen::Vector3d d_pos_map;
         for(int i=0; i<3; i++) d_pos_map(i) = d_pos_raw(map_pos_(i)) * sign_pos_(i) * scale_pos_;
         p_des += R_start_ * d_pos_map; // Apply relative to initial tool orientation
         
-        // Orientation Mapping (Local Difference)
-        Eigen::Quaterniond d_quat = phantom_quat_initial_.inverse() * phantom_quat_current_;
+        // Orientation Mapping (Local Difference using Filtered Data)
+        Eigen::Quaterniond d_quat = phantom_quat_initial_.inverse() * phantom_quat_filtered_;
         Eigen::AngleAxisd aa(d_quat);
         Eigen::Vector3d axis_raw = aa.axis() * aa.angle();
         Eigen::Vector3d axis_map;
@@ -166,13 +179,6 @@ private:
             R_des = R_start_ * Eigen::AngleAxisd(axis_map.norm(), axis_map.normalized()).toRotationMatrix();
         }
 
-        // --- Filtering ---
-        p_des_filtered_ = filter_alpha_ * p_des + (1.0 - filter_alpha_) * p_des_filtered_;
-        
-        Eigen::Quaterniond q_filt(R_des_filtered_);
-        Eigen::Quaterniond q_tgt(R_des);
-        R_des_filtered_ = q_filt.slerp(filter_alpha_, q_tgt).toRotationMatrix();
-
         // --- 2. Inverse Kinematics (Damped Least Squares) ---
         for(int iter=0; iter<5; ++iter) {
             pinocchio::forwardKinematics(model_, data_, q_cmd_);
@@ -181,8 +187,8 @@ private:
             Eigen::MatrixXd J(6, nq_);
             pinocchio::computeFrameJacobian(model_, data_, q_cmd_, ee_id_, pinocchio::LOCAL_WORLD_ALIGNED, J);
             
-            Eigen::Vector3d ep = p_des_filtered_ - data_.oMf[ee_id_].translation();
-            Eigen::Matrix3d Re = R_des_filtered_ * data_.oMf[ee_id_].rotation().transpose();
+            Eigen::Vector3d ep = p_des - data_.oMf[ee_id_].translation();
+            Eigen::Matrix3d Re = R_des * data_.oMf[ee_id_].rotation().transpose();
             Eigen::Vector3d er;
             er << Re(2,1)-Re(1,2), Re(0,2)-Re(2,0), Re(1,0)-Re(0,1);
             er *= 0.5;
@@ -191,24 +197,30 @@ private:
             if(e.norm() < 1e-4) break;
             
             Eigen::MatrixXd H = J.transpose() * J + 1e-3 * Eigen::MatrixXd::Identity(nq_, nq_);
-            q_cmd_ += H.ldlt().solve(J.transpose() * e);
+            Eigen::VectorXd dq = H.ldlt().solve(J.transpose() * e);
+            
+            // Limit Max Angular Velocity
+            // max_step = max_vel (rad/s) * dt (s)
+            // Assuming control loop runs at 100Hz (dt=0.01s), but we iterate 5 times per loop?
+            // No, this is IK iteration. The dq here is the step for the IK solver to converge to p_des.
+            // However, we want to limit the final q_cmd change per control cycle.
+            // Let's limit the step size of the IK solver to prevent jumps.
+            double max_step = max_joint_vel_ * 0.01; // Approx limit per IK step
+            if (dq.norm() > max_step) {
+                dq = dq.normalized() * max_step;
+            }
+            
+            q_cmd_ += dq;
         }
         
         // --- 3. Publish ---
         for(int i=0; i<nq_; ++i) q_cmd_(i) = std::clamp(q_cmd_(i), q_min_(i), q_max_(i));
         
-        // Velocity calculation
-        double dt = 0.01; 
-        Eigen::VectorXd v_cmd = (q_cmd_ - q_prev_cmd_) / dt;
-        if(v_cmd.cwiseAbs().maxCoeff() > 2.0) v_cmd *= (2.0 / v_cmd.cwiseAbs().maxCoeff());
-        q_prev_cmd_ = q_cmd_;
-
         trajectory_msgs::msg::JointTrajectory cmd;
         cmd.header.stamp = this->now();
         cmd.joint_names = joint_names_;
         cmd.points.resize(1);
         cmd.points[0].positions.assign(q_cmd_.data(), q_cmd_.data() + nq_);
-        cmd.points[0].velocities.assign(v_cmd.data(), v_cmd.data() + nq_);
         cmd.points[0].time_from_start = rclcpp::Duration::from_seconds(0.02);
         pub_cmd_->publish(cmd);
 
