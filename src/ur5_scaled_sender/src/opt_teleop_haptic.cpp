@@ -19,6 +19,7 @@ class OptTeleop : public rclcpp::Node {
     int nq_;
     
     Eigen::VectorXd q_current_, q_cmd_, dq_current_;
+    Eigen::VectorXd q_cmd_prev_; // To calculate command velocity
     Eigen::Matrix3d R_start_;
     Eigen::Vector3d p_start_;
     bool robot_initialized_ = false;
@@ -62,12 +63,12 @@ public:
 
         // 1. Parameters
         auto urdf_path = this->declare_parameter<std::string>("urdf_path", "/home/utec/try_opt/urdf/ur5.urdf");
-        double ctrl_hz = this->declare_parameter<double>("ctrl_hz", 100.0);
+        double ctrl_hz = this->declare_parameter<double>("ctrl_hz", 500.0); // Increased to 500Hz for smoother control
         
         scale_pos_ = this->declare_parameter<double>("haptic_scale_pos", 1.0);
         scale_rot_ = this->declare_parameter<double>("haptic_scale_rot", 1.0);
-        filter_gain_ = this->declare_parameter<double>("filter_gain", 0.1); // 0.0 to 1.0 (1.0 = no filter)
-        max_joint_vel_ = this->declare_parameter<double>("max_joint_vel", 0.7); // rad/s
+        filter_gain_ = this->declare_parameter<double>("filter_gain", 0.8); // Increased for faster response (was 0.1)
+        max_joint_vel_ = this->declare_parameter<double>("max_joint_vel", 2.5); // Increased limit (was 0.7)
         
         // Mapping: Robot Index <- Phantom Index
         map_pos_ = {this->declare_parameter<int>("map_x", 2),
@@ -92,6 +93,7 @@ public:
         
         q_current_ = Eigen::VectorXd::Zero(nq_);
         q_cmd_ = Eigen::VectorXd::Zero(nq_);
+        q_cmd_prev_ = Eigen::VectorXd::Zero(nq_);
         dq_current_ = Eigen::VectorXd::Zero(nq_);
         
         // Limits
@@ -113,6 +115,7 @@ public:
                 
                 if(!robot_initialized_ && q_current_.norm() > 0.001) {
                     q_cmd_ = q_current_;
+                    q_cmd_prev_ = q_current_;
                     pinocchio::forwardKinematics(model_, data_, q_current_);
                     pinocchio::framesForwardKinematics(model_, data_, q_current_);
                     p_start_ = data_.oMf[ee_id_].translation();
@@ -199,15 +202,13 @@ private:
             Eigen::MatrixXd H = J.transpose() * J + 1e-3 * Eigen::MatrixXd::Identity(nq_, nq_);
             Eigen::VectorXd dq = H.ldlt().solve(J.transpose() * e);
             
-            // Limit Max Angular Velocity
-            // max_step = max_vel (rad/s) * dt (s)
-            // Assuming control loop runs at 100Hz (dt=0.01s), but we iterate 5 times per loop?
-            // No, this is IK iteration. The dq here is the step for the IK solver to converge to p_des.
-            // However, we want to limit the final q_cmd change per control cycle.
-            // Let's limit the step size of the IK solver to prevent jumps.
-            double max_step = max_joint_vel_ * 0.01; // Approx limit per IK step
-            if (dq.norm() > max_step) {
-                dq = dq.normalized() * max_step;
+            // Limit Max Angular Velocity (Per-Joint Scaling to preserve direction)
+            double dt = 1.0 / 500.0;
+            double max_step = max_joint_vel_ * dt;
+            
+            double max_dq = dq.cwiseAbs().maxCoeff();
+            if (max_dq > max_step) {
+                dq *= (max_step / max_dq);
             }
             
             q_cmd_ += dq;
@@ -216,12 +217,22 @@ private:
         // --- 3. Publish ---
         for(int i=0; i<nq_; ++i) q_cmd_(i) = std::clamp(q_cmd_(i), q_min_(i), q_max_(i));
         
+        // Calculate velocity command (Optional: Commented out for safety)
+        /*
+        double dt = 1.0 / 500.0;
+        Eigen::VectorXd v_cmd = (q_cmd_ - q_cmd_prev_) / dt;
+        q_cmd_prev_ = q_cmd_;
+        */
+
         trajectory_msgs::msg::JointTrajectory cmd;
-        cmd.header.stamp = this->now();
+        // Use Time(0) to execute immediately (ignore synchronization issues)
+        cmd.header.stamp = rclcpp::Time(0); 
         cmd.joint_names = joint_names_;
         cmd.points.resize(1);
         cmd.points[0].positions.assign(q_cmd_.data(), q_cmd_.data() + nq_);
-        cmd.points[0].time_from_start = rclcpp::Duration::from_seconds(0.02);
+        // cmd.points[0].velocities.assign(v_cmd.data(), v_cmd.data() + nq_); // Disabled for safety
+        // time_from_start is relative to "now" since header.stamp is 0
+        cmd.points[0].time_from_start = rclcpp::Duration::from_seconds(0.01); // Increased slightly for stability
         pub_cmd_->publish(cmd);
 
         if(csv_file_.is_open()) {
