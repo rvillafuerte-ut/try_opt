@@ -15,7 +15,7 @@ def _launch_setup(context, *args, **kwargs):
     try:
         positions = [float(x) for x in positions_csv.split(',') if x.strip() != '']
     except Exception:
-        positions = [-1.57, -1.9, 1.7, -1.7, -1.57, 0.0]
+        positions = [0, -1.83, 1.57, -1.944, -1.5398, 0.0]
 
     # Default UR5 joint names
     default_joint_names = [

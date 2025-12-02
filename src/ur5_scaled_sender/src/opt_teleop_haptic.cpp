@@ -19,7 +19,6 @@ class OptTeleop : public rclcpp::Node {
     int nq_;
     
     Eigen::VectorXd q_current_, q_cmd_, dq_current_;
-    Eigen::VectorXd q_cmd_prev_; // To calculate command velocity
     Eigen::Matrix3d R_start_;
     Eigen::Vector3d p_start_;
     bool robot_initialized_ = false;
@@ -37,6 +36,7 @@ class OptTeleop : public rclcpp::Node {
     double t0_;
 
     // Parameters
+    std::string nmspace_;
     double scale_pos_, scale_rot_;
     double filter_gain_, max_joint_vel_;
     Eigen::Vector3d sign_pos_, sign_rot_;
@@ -53,47 +53,57 @@ class OptTeleop : public rclcpp::Node {
     };
     
     Eigen::VectorXd q_min_, q_max_;
+    double ctrl_hz_;
 
 public:
     OptTeleop() : Node("opt_teleop_haptic"), data_(model_) {
-        csv_file_.open("/home/utec/try_opt/teleop_data.csv");
-        // Header: time, qc0-5, qa0-5, dqa0-5, p_des_xyz, p_act_xyz
-        csv_file_ << "time,qc0,qc1,qc2,qc3,qc4,qc5,qa0,qa1,qa2,qa3,qa4,qa5,dqa0,dqa1,dqa2,dqa3,dqa4,dqa5,pd0,pd1,pd2,pa0,pa1,pa2\n";
+        // Usa una ruta absoluta o relativa segura. Si falla, no crashea.
+        csv_file_.open("/home/utec/try_opt/teleop_data.csv"); 
+        if(csv_file_.is_open()) {
+             csv_file_ << "time,qc0,qc1,qc2,qc3,qc4,qc5,qa0,qa1,qa2,qa3,qa4,qa5,pd0,pd1,pd2,time_from_start,";
+             csv_file_ << "vel_req0,vel_req1,vel_req2,vel_req3,vel_req4,vel_req5,";
+             csv_file_ << "vel_max_req,error_norm,saturated\n";
+        }
         t0_ = this->now().seconds();
 
         // 1. Parameters
+        nmspace_ = this->declare_parameter<std::string>("nmspace", "");
         auto urdf_path = this->declare_parameter<std::string>("urdf_path", "/home/utec/try_opt/urdf/ur5.urdf");
-        double ctrl_hz = this->declare_parameter<double>("ctrl_hz", 500.0); // Increased to 500Hz for smoother control
+        ctrl_hz_ = this->declare_parameter<double>("ctrl_hz", 125.0); // 125Hz para estabilidad
         
         scale_pos_ = this->declare_parameter<double>("haptic_scale_pos", 1.0);
         scale_rot_ = this->declare_parameter<double>("haptic_scale_rot", 1.0);
-        filter_gain_ = this->declare_parameter<double>("filter_gain", 0.8); // Increased for faster response (was 0.1)
-        max_joint_vel_ = this->declare_parameter<double>("max_joint_vel", 2.5); // Increased limit (was 0.7)
+        filter_gain_ = this->declare_parameter<double>("filter_gain", 0.6); 
+        max_joint_vel_ = this->declare_parameter<double>("max_joint_vel", 2.5);
         
-        // Mapping: Robot Index <- Phantom Index
-        map_pos_ = {this->declare_parameter<int>("map_x", 2),
-                    this->declare_parameter<int>("map_y", 0),
-                    this->declare_parameter<int>("map_z", 1)};
+        // Mapping: Casting estático para evitar warnings de int64_t -> int
+        map_pos_ = {static_cast<int>(this->declare_parameter<int>("map_x", 2)),
+                    static_cast<int>(this->declare_parameter<int>("map_y", 0)),
+                    static_cast<int>(this->declare_parameter<int>("map_z", 1))};
         sign_pos_ = {this->declare_parameter<double>("sign_x", -1.0),
                      this->declare_parameter<double>("sign_y", -1.0),
                      this->declare_parameter<double>("sign_z", 1.0)};
 
-        map_rot_ = {this->declare_parameter<int>("map_roll", 2),
-                    this->declare_parameter<int>("map_pitch", 0),
-                    this->declare_parameter<int>("map_yaw", 1)};
+        map_rot_ = {static_cast<int>(this->declare_parameter<int>("map_roll", 2)),
+                    static_cast<int>(this->declare_parameter<int>("map_pitch", 0)),
+                    static_cast<int>(this->declare_parameter<int>("map_yaw", 1))};
         sign_rot_ = {this->declare_parameter<double>("sign_roll", 1.0),
                      this->declare_parameter<double>("sign_pitch", 1.0),
                      this->declare_parameter<double>("sign_yaw", 1.0)};
         
         // 2. Setup Pinocchio
-        pinocchio::urdf::buildModel(urdf_path, model_);
+        try {
+            pinocchio::urdf::buildModel(urdf_path, model_);
+        } catch (const std::exception& e) {
+            RCLCPP_ERROR(this->get_logger(), "Error loading URDF: %s", e.what());
+        }
+
         data_ = pinocchio::Data(model_);
         ee_id_ = model_.getFrameId("tool0");
         nq_ = model_.nv;
         
         q_current_ = Eigen::VectorXd::Zero(nq_);
         q_cmd_ = Eigen::VectorXd::Zero(nq_);
-        q_cmd_prev_ = Eigen::VectorXd::Zero(nq_);
         dq_current_ = Eigen::VectorXd::Zero(nq_);
         
         // Limits
@@ -103,7 +113,6 @@ public:
         // 3. Subscribers
         sub_js_ = this->create_subscription<sensor_msgs::msg::JointState>(
             "/joint_states", 10, [this](sensor_msgs::msg::JointState::SharedPtr msg) {
-                // Map disordered joint names
                 for(size_t i=0; i<joint_names_.size(); ++i) {
                     auto it = std::find(msg->name.begin(), msg->name.end(), joint_names_[i]);
                     if(it != msg->name.end()) {
@@ -115,9 +124,11 @@ public:
                 
                 if(!robot_initialized_ && q_current_.norm() > 0.001) {
                     q_cmd_ = q_current_;
-                    q_cmd_prev_ = q_current_;
                     pinocchio::forwardKinematics(model_, data_, q_current_);
-                    pinocchio::framesForwardKinematics(model_, data_, q_current_);
+                    pinocchio::framesForwardKinematics(model_, data_, q_current_); // Usa framesFK para actualizar tool0
+                    // IMPORTANTE: Asegúrate de usar updateFramePlacement o framesForwardKinematics
+                    pinocchio::updateFramePlacement(model_, data_, ee_id_);
+                    
                     p_start_ = data_.oMf[ee_id_].translation();
                     R_start_ = data_.oMf[ee_id_].rotation();
                     robot_initialized_ = true;
@@ -151,7 +162,7 @@ public:
         pub_cmd_ = this->create_publisher<trajectory_msgs::msg::JointTrajectory>(
             "/scaled_joint_trajectory_controller/joint_trajectory", 10);
         
-        timer_ = this->create_wall_timer(std::chrono::duration<double>(1.0/ctrl_hz), 
+        timer_ = this->create_wall_timer(std::chrono::duration<double>(1.0/ctrl_hz_), 
                                        std::bind(&OptTeleop::control_loop, this));
     }
 
@@ -165,27 +176,34 @@ private:
         Eigen::Vector3d p_des = p_start_;
         Eigen::Matrix3d R_des = R_start_;
         
-        // Position Mapping (Using Filtered Data)
+        // Position Mapping (Global Mapping para que derecha sea derecha)
         Eigen::Vector3d d_pos_raw = phantom_pos_filtered_ - phantom_pos_initial_;
         Eigen::Vector3d d_pos_map;
         for(int i=0; i<3; i++) d_pos_map(i) = d_pos_raw(map_pos_(i)) * sign_pos_(i) * scale_pos_;
-        p_des += R_start_ * d_pos_map; // Apply relative to initial tool orientation
         
-        // Orientation Mapping (Local Difference using Filtered Data)
+        // OPCIÓN: Movimiento Global (Sumar directamente a la posición inicial, sin rotar por R_start_)
+        p_des += d_pos_map; 
+        
+        // Orientation Mapping
+        // CORRECCIÓN DEL ERROR DE COMPILACIÓN AQUÍ:
         Eigen::Quaterniond d_quat = phantom_quat_initial_.inverse() * phantom_quat_filtered_;
         Eigen::AngleAxisd aa(d_quat);
         Eigen::Vector3d axis_raw = aa.axis() * aa.angle();
+        
         Eigen::Vector3d axis_map;
         for(int i=0; i<3; i++) axis_map(i) = axis_raw(map_rot_(i)) * sign_rot_(i) * scale_rot_;
         
         if (axis_map.norm() > 1e-6) {
-            R_des = R_start_ * Eigen::AngleAxisd(axis_map.norm(), axis_map.normalized()).toRotationMatrix();
+            // Rotación local: aplicar delta respecto al frame actual del robot
+            Eigen::Matrix3d R_delta = Eigen::AngleAxisd(axis_map.norm(), axis_map.normalized()).toRotationMatrix();
+            R_des = R_start_ * R_delta; 
         }
 
-        // --- 2. Inverse Kinematics (Damped Least Squares) ---
+        // --- 2. Inverse Kinematics ---
         for(int iter=0; iter<5; ++iter) {
             pinocchio::forwardKinematics(model_, data_, q_cmd_);
             pinocchio::framesForwardKinematics(model_, data_, q_cmd_);
+            pinocchio::updateFramePlacement(model_, data_, ee_id_);
             
             Eigen::MatrixXd J(6, nq_);
             pinocchio::computeFrameJacobian(model_, data_, q_cmd_, ee_id_, pinocchio::LOCAL_WORLD_ALIGNED, J);
@@ -202,8 +220,8 @@ private:
             Eigen::MatrixXd H = J.transpose() * J + 1e-3 * Eigen::MatrixXd::Identity(nq_, nq_);
             Eigen::VectorXd dq = H.ldlt().solve(J.transpose() * e);
             
-            // Limit Max Angular Velocity (Per-Joint Scaling to preserve direction)
-            double dt = 1.0 / 500.0;
+            // Limitador de velocidad
+            double dt = 1.0 / ctrl_hz_;
             double max_step = max_joint_vel_ * dt;
             
             double max_dq = dq.cwiseAbs().maxCoeff();
@@ -217,32 +235,62 @@ private:
         // --- 3. Publish ---
         for(int i=0; i<nq_; ++i) q_cmd_(i) = std::clamp(q_cmd_(i), q_min_(i), q_max_(i));
         
-        // Calculate velocity command (Optional: Commented out for safety)
-        /*
-        double dt = 1.0 / 500.0;
-        Eigen::VectorXd v_cmd = (q_cmd_ - q_cmd_prev_) / dt;
-        q_cmd_prev_ = q_cmd_;
-        */
-
+        // Construir nombres de joints con namespace si existe
+        std::string prefix = nmspace_.empty() ? "" : (nmspace_ + "_");
+        std::vector<std::string> joint_names_ns = {
+            prefix + "shoulder_pan_joint", prefix + "shoulder_lift_joint", prefix + "elbow_joint",
+            prefix + "wrist_1_joint", prefix + "wrist_2_joint", prefix + "wrist_3_joint"
+        };
+        
         trajectory_msgs::msg::JointTrajectory cmd;
-        // Use Time(0) to execute immediately (ignore synchronization issues)
-        cmd.header.stamp = rclcpp::Time(0); 
-        cmd.joint_names = joint_names_;
-        cmd.points.resize(1);
-        cmd.points[0].positions.assign(q_cmd_.data(), q_cmd_.data() + nq_);
-        // cmd.points[0].velocities.assign(v_cmd.data(), v_cmd.data() + nq_); // Disabled for safety
-        // time_from_start is relative to "now" since header.stamp is 0
-        cmd.points[0].time_from_start = rclcpp::Duration::from_seconds(0.01); // Increased slightly for stability
+        cmd.header.stamp = this->now();
+        cmd.joint_names = joint_names_ns;
+        
+        trajectory_msgs::msg::JointTrajectoryPoint point;
+        point.positions.assign(q_cmd_.data(), q_cmd_.data() + nq_);
+        
+        // CLAVE: Usar tiempo fijo para permitir interpolación suave del controlador
+        // El controlador scaled_joint_trajectory_controller interpola entre comandos
+        // Si el tiempo es muy corto, cada comando interrumpe al anterior
+        double fixed_time = 0.1; // 100ms permite movimiento fluido
+        point.time_from_start = rclcpp::Duration::from_seconds(fixed_time); 
+        
+        cmd.points.push_back(point);
         pub_cmd_->publish(cmd);
 
         if(csv_file_.is_open()) {
-            Eigen::Vector3d p_act = data_.oMf[ee_id_].translation();
+            // Calcular velocidades requeridas usando el tiempo fijo del comando
+            double cmd_time = fixed_time;
+            Eigen::VectorXd vel_required(nq_);
+            for(int i=0; i<nq_; ++i) {
+                vel_required(i) = (q_cmd_(i) - q_current_(i)) / cmd_time;
+            }
+            double vel_max_req = vel_required.cwiseAbs().maxCoeff();
+            double error_norm = (q_cmd_ - q_current_).norm();
+            
+            // Detectar si está saturado (velocidad requerida > límite configurado)
+            bool saturated = vel_max_req > max_joint_vel_;
+            
+            // WARNING: Si la velocidad requerida es peligrosamente alta
+            if(vel_max_req > 3.5) {
+                RCLCPP_WARN_THROTTLE(this->get_logger(), *this->get_clock(), 1000,
+                    "VELOCIDAD PELIGROSA: %.2f rad/s (max_joint_vel=%.2f, time_from_start=%.3fs)", 
+                    vel_max_req, max_joint_vel_, cmd_time);
+            }
+            
             csv_file_ << std::fixed << std::setprecision(4) << (this->now().seconds() - t0_);
+            // q_cmd (comando)
             for(int i=0; i<nq_; ++i) csv_file_ << "," << q_cmd_(i);
+            // q_actual (medido)
             for(int i=0; i<nq_; ++i) csv_file_ << "," << q_current_(i);
-            for(int i=0; i<nq_; ++i) csv_file_ << "," << dq_current_(i);
+            // p_des (posición cartesiana deseada)
             csv_file_ << "," << p_des(0) << "," << p_des(1) << "," << p_des(2);
-            csv_file_ << "," << p_act(0) << "," << p_act(1) << "," << p_act(2);
+            // time_from_start (ahora fijo)
+            csv_file_ << "," << cmd_time;
+            // velocidades requeridas por articulación
+            for(int i=0; i<nq_; ++i) csv_file_ << "," << vel_required(i);
+            // velocidad máxima requerida, error, y flag de saturación
+            csv_file_ << "," << vel_max_req << "," << error_norm << "," << (saturated ? 1 : 0);
             csv_file_ << "\n";
         }
     }
