@@ -59,7 +59,7 @@ def generate_launch_description():
         
         # Inversión de ejes (SOLO -1.0 o 1.0)
         DeclareLaunchArgument('sign_x', 
-            default_value='-1.0', 
+            default_value='1.0', 
             description='X axis direction (1.0 or -1.0 ONLY)'),
         DeclareLaunchArgument('sign_y', 
             default_value='-1.0', 
@@ -79,10 +79,10 @@ def generate_launch_description():
         
         # Remapeo de ejes (0=X/Roll, 1=Y/Pitch, 2=Z/Yaw)
         DeclareLaunchArgument('map_x', 
-            default_value='2', 
+            default_value='0', 
             description='Phantom axis for robot X (0=phantom_X, 1=phantom_Y, 2=phantom_Z)'),
         DeclareLaunchArgument('map_y', 
-            default_value='0', 
+            default_value='2', 
             description='Phantom axis for robot Y (0=phantom_X, 1=phantom_Y, 2=phantom_Z)'),
         DeclareLaunchArgument('map_z', 
             default_value='1', 
