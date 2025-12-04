@@ -23,7 +23,7 @@ def generate_launch_description():
             name='button_to_gripper',
             output='screen',
             parameters=[
-                {'closed_position': 52},      # 0 = completamente cerrado
+                {'closed_position': 42},      # 0 = completamente cerrado
                 {'open_position': 100},      # 250 = casi completamente abierto
                 {'close_force': 255},        # Fuerza máxima para cerrar
                 {'open_force': 150},         # Fuerza media para abrir
